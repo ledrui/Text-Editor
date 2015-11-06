@@ -57,16 +57,16 @@ public class BasicDocument extends Document
 	@Override
 	public int getNumSyllables()
 	{
-		/*
+		
 		List<String> words = new ArrayList<String>();
-		words = getTokens("[a-zAZ]+");
+		words = getTokens("[a-zAZ]+|[!?.]+");
 		int NumSyl = 0 ;
 		for (String word : words){
 			NumSyl += countSyllables(word);
 		}
 		return NumSyl; 
-		*/
-		return (getTokens("[aeiouy]+[^$e(,.:;!?)]").size());
+		
+		//return (getTokens("[aeiouy]+[^$e(,.:;!?)]").size());
 	}
 	
 	

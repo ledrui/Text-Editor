@@ -51,11 +51,16 @@ public abstract class Document {
 	protected int countSyllables(String word)
 	{
 		char[] cArray = word.toCharArray();
-		
+		int count = 0;
+		char[] vowel = {'a','e','y','u','i','o'};
 		for (int i = 0; i < cArray.length; i++){
+			char c = cArray[i];
+			if(c == 'a'||c=='e'||c=='y'||c=='o'||c=='i'){
+				count++;
+			}
 			
 		}
-
+		return count;
 
 	}
 	
