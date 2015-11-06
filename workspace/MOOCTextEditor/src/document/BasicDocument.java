@@ -57,7 +57,7 @@ public class BasicDocument extends Document
 	@Override
 	public int getNumSyllables()
 	{
-		
+		/*
 		List<String> words = new ArrayList<String>();
 		words = getTokens("[a-zAZ]+|[!?.]+");
 		int NumSyl = 0 ;
@@ -66,7 +66,8 @@ public class BasicDocument extends Document
 		}
 		return NumSyl; 
 		
-		//return (getTokens("[aeiouy]+[^$e(,.:;!?)]").size());
+		*/
+		return (getTokens("[aeiouy]+[^$e(,.:;!?)]").size());
 	}
 	
 	

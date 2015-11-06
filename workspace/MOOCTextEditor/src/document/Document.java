@@ -55,8 +55,11 @@ public abstract class Document {
 		char[] vowel = {'a','e','y','u','i','o'};
 		for (int i = 0; i < cArray.length; i++){
 			char c = cArray[i];
+			char c1 = cArray[i+1];
 			if(c == 'a'||c=='e'||c=='y'||c=='o'||c=='i'){
-				count++;
+				if(c1 == 'a'||c1=='e'||c1=='y'||c1=='o'||c1=='i'){
+					count++;
+				}
 			}
 			
 		}
@@ -127,7 +130,7 @@ public abstract class Document {
 		int words= getNumWords();
 		int sentences= getNumSentences();
 		int syllables= getNumSyllables();
-	    double fleshScore = 206.835 - 1.015*(words/sentences)-84.6*(syllables/words);
+	    double fleshScore = 206.835 - 1.015*((double)words/(double)sentences)-84.6*((double)syllables/(double)words);
 	    
 	    return fleshScore;
 	}
