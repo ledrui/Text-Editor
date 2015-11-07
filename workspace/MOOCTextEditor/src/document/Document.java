@@ -52,7 +52,7 @@ public abstract class Document {
 	{
 		char[] cArray = word.toCharArray();
 		int count = 0;
-		char[] vowel = {'a','e','y','u','i','o'};
+		
 		for (int i = 0; i < cArray.length; i++){
 			char c = cArray[i];
 			char c1 = cArray[i+1];
