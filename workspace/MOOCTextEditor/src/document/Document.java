@@ -66,6 +66,19 @@ public abstract class Document {
 		return count;
 
 	}
+	/**
+	 * 
+	 * @param c
+	 * @return true is a character  is a vowel
+	 */
+	
+	public boolean isVowel(char c){
+		if(c == 'a' || c =='e' || c == 'y' ||c =='u' || c == 'i' || c == 'o'){
+			
+			return true;
+		} 
+		else { return false;}
+	}
 	
 	/** A method for testing
 	 * 
