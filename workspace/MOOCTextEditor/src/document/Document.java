@@ -45,39 +45,28 @@ public abstract class Document {
 	// This is a helper function that returns the number of syllables
 	// in a word.  You should write this and use it in your 
 	// BasicDocument class.
-	// You will probably NOT need to add a countWords or a countSentences method
-	// here.  The reason we put countSyllables here because we'll use it again
-	// next week when we implement the EfficientDocument class.
-	protected int countSyllables(String word)
+	protected static int countSyllables(String word)
 	{
+	    //System.out.print("Counting syllables in " + word + "...");
+		int numSyllables = 0;
+		boolean newSyllable = true;
+		String vowels = "aeiouy";
 		char[] cArray = word.toCharArray();
-		int count = 0;
-		
-		for (int i = 0; i < cArray.length; i++){
-			char c = cArray[i];
-			char c1 = cArray[i+1];
-			if(isVowel(c)){
-				if(c1 == 'a'||c1=='e'||c1=='y'||c1=='o'||c1=='i'){
-					count++;
-				}
+		for (int i = 0; i < cArray.length; i++)
+		{
+		    if (i == cArray.length-1 && cArray[i] == 'e' && newSyllable && numSyllables > 0) {
+                numSyllables--;
+            }
+		    if (newSyllable && vowels.indexOf(Character.toLowerCase(cArray[i])) >= 0) {
+				newSyllable = false;
+				numSyllables++;
 			}
-			
+			else if (vowels.indexOf(Character.toLowerCase(cArray[i])) < 0) {
+				newSyllable = true;
+			}
 		}
-		return count;
-
-	}
-	/**
-	 * 
-	 * @param c
-	 * @return true is a character  is a vowel
-	 */
-	
-	public boolean isVowel(char c){
-		if(c == 'a' || c =='e' || c == 'y' ||c =='u' || c == 'i' || c == 'o'){
-			
-			return true;
-		} 
-		else { return false;}
+		//System.out.println( "found " + numSyllables);
+		return numSyllables;
 	}
 	
 	/** A method for testing
@@ -140,12 +129,10 @@ public abstract class Document {
 	/** return the Flesch readability score of this document */
 	public double getFleschScore()
 	{
-		int words= getNumWords();
-		int sentences= getNumSentences();
-		int syllables= getNumSyllables();
-	    double fleshScore = 206.835 - 1.015*((double)words/(double)sentences)-84.6*((double)syllables/(double)words);
-	    
-	    return fleshScore;
+		double wordCount = (double)getNumWords();
+		return 206.835 - (1.015 * ((wordCount)/getNumSentences())) 
+				- (84.6 * (((double)getNumSyllables())/wordCount));
+	
 	}
 	
 	

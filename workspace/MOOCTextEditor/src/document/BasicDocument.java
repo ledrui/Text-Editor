@@ -29,7 +29,8 @@ public class BasicDocument extends Document
 	@Override
 	public int getNumWords()
 	{
-		return (getTokens("[a-zAZ]+").size());
+		 List <String> tokens =  getTokens("[a-zA-Z]+");
+		return tokens.size();
 	}
 	
 	/**
@@ -43,7 +44,9 @@ public class BasicDocument extends Document
 	@Override
 	public int getNumSentences()
 	{
-		return (getTokens("[^!?.]+").size());
+		 
+		List <String> tokens =  getTokens("[^!?.]+");
+		return (tokens.size());
 	}
 	
 	/**
@@ -57,17 +60,18 @@ public class BasicDocument extends Document
 	@Override
 	public int getNumSyllables()
 	{
-		/*
+	
 		List<String> words = new ArrayList<String>();
-		words = getTokens("[a-zAZ]+|[!?.]+");
+		words = getTokens("[a-zA-Z]+");
 		int NumSyl = 0 ;
 		for (String word : words){
 			NumSyl += countSyllables(word);
 		}
 		return NumSyl; 
 		
-		*/
-		return (getTokens("[aeiouy]+[^$e(,.:;!?)]").size());
+	
+		// using regex
+		//return (getTokens("[aeiouy]+[^$e(,.:;!?)]").size());
 	}
 	
 	
