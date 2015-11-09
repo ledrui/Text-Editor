@@ -56,7 +56,7 @@ public abstract class Document {
 		for (int i = 0; i < cArray.length; i++){
 			char c = cArray[i];
 			char c1 = cArray[i+1];
-			if(c == 'a'||c=='e'||c=='y'||c=='o'||c=='i'){
+			if(isVowel(c)){
 				if(c1 == 'a'||c1=='e'||c1=='y'||c1=='o'||c1=='i'){
 					count++;
 				}
