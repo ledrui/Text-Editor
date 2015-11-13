@@ -48,9 +48,9 @@ public class EfficientDocument extends Document {
 		// Document.  That will come in handy here.
 		for(String tok : tokens){
 			if(isWord(tok)){
-				 getNumWords();
-				 getNumSentences();
-				 getNumSyllables();
+				numWords = getNumWords();
+				numSentences = getNumSentences();
+				numSyllables = getNumSyllables();
 			}
 		}
 	}
@@ -66,8 +66,8 @@ public class EfficientDocument extends Document {
 	@Override
 	public int getNumWords() {
 		List <String> tokens =  getTokens("[a-zA-Z]+");
-		return tokens.size();
-		//return numWords;
+		numWords = tokens.size();
+		return numWords;
 	}
 
 	/**
@@ -81,8 +81,8 @@ public class EfficientDocument extends Document {
 	@Override
 	public int getNumSentences() {
 		List <String> tokens =  getTokens("[^!?.]+");
-		return (tokens.size());
-		//return numSentences;
+		numSentences =  (tokens.size());
+		return numSentences;
 	}
 
 	/**
@@ -101,8 +101,9 @@ public class EfficientDocument extends Document {
 		for (String word : words){   		
 			NumSyl += countSyllables(word);
 		}
-		return NumSyl;
-		//return numSyllables; 
+		numSyllables = NumSyl;
+		
+		return numSyllables; 
 			   
 	}
 	

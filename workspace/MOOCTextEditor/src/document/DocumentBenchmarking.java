@@ -54,17 +54,17 @@ public class DocumentBenchmarking {
 			 //3. Time a loop that runs trials times (trials is the variable above) that:
 			 
 			  long startTime = System.nanoTime(); 
-			  while(trials!=0){
+			  for( int i = 0; i<trials ; i++ ){
 			// a. Creates an BasicDocument
 				  BasicDocument basicDoc = new BasicDocument(text);
 			 //     b. Calls fleshScore on this document
 				  basicDoc.getFleschScore();
 			 // 4. Print out the time it took to complete the loop in step 3 
-				  trials--;
+				 
 			  }
 			 //     (on the same line as the first print statement) followed by a tab (\t)
 			  long endTime = System.nanoTime();
-			  long loopTime = (long) ((endTime-startTime));
+			  long loopTime = (long) ((endTime - startTime)/100000000.0);
 			  
 			 // 5. Time a loop that runs trials times (trials is the variable above) that:
 			  long startTime2 = System.nanoTime();
@@ -76,13 +76,13 @@ public class DocumentBenchmarking {
 			  }
 			  long endTime2 = System.nanoTime();
 			  
-			  long loopTime2 = (long)((endTime2 - startTime2));
+			  long loopTime2 = (long)((endTime2 - startTime2)/100000000.0);
 			 // 6. Print out the time it took to complete the loop in step 5 
 			 //      (on the same line as the first print statement) followed by a newline (\n) 
 			  
 			 //  
 		
-			 System.out.println(numToCheck+ "\t" + loopTime + "\t" + loopTime2 +"\n");
+			 System.out.println(numToCheck + "\t" + loopTime + "\t" + loopTime2 +"\n");
 		}
 	
 	}
