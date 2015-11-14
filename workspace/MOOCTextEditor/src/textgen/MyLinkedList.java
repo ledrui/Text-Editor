@@ -50,16 +50,26 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * @throws IndexOutOfBoundsException if the index is out of bounds. */
 	public E get(int index) throws IndexOutOfBoundsException
 	{
-		LLNode<E> newNode = head.next;
-		int count = 0; 
-		try{
-			while(newNode!=null){
-				count ++;
+		if (index == 0) return (E)this.head;
+		else if((index < 0 )||(index > this.size)){
+			//throw IndexOutOfBoundsException;
+		}
+		else{
+			LLNode<E> newNode = head.next;
+			int count = 1; 
+			try{
+				while(newNode!=null){
+					if (count == index){
+						return (E)newNode;
+					}
+					count ++;
+					newNode = newNode.next;
+				}
 			}
-		}
-		catch(IndexOutOfBoundsException e){
-			
-		}
+			catch(IndexOutOfBoundsException e){
+				
+			}
+	   }
 	}
 
 	/**
