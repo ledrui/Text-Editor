@@ -137,19 +137,40 @@ public class MyLinkedListTester {
 		try
 		{
 			System.out.println(list1.size());
+			fail("fail to check the size");
 		}
 		catch(IndexOutOfBoundsException e){
 			
 		}
 		
 		// test on empty list, throw exception
-				try
-				{
-					System.out.println(emptyList.size());
-				}
-				catch(IndexOutOfBoundsException e){
-					
-				}
+		try
+		{
+			System.out.println(emptyList.size());
+		}
+		catch(IndexOutOfBoundsException e){
+			
+		}
+		// Test on shortList
+		try
+		{
+			System.out.println(shortList.size());
+			fail("fail to check the size");
+		}
+		catch(IndexOutOfBoundsException e){
+			
+		}
+		
+		// Test on LongList
+		try
+		{
+			System.out.println(longerList.size());
+			fail("fail to check the size");
+		}
+		catch(IndexOutOfBoundsException e){
+			
+		}
+		
 	}
 
 	

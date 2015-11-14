@@ -36,7 +36,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 		LLNode<E> newNode = new LLNode<E>(element);
 		try{
 		   newNode.next = this.head;
-		   head = newNode;
+		   this.head = newNode;
 		}
 		catch(IndexOutOfBoundsException e){
 			
@@ -48,10 +48,18 @@ public class MyLinkedList<E> extends AbstractList<E> {
 
 	/** Get the element at position index 
 	 * @throws IndexOutOfBoundsException if the index is out of bounds. */
-	public E get(int index) 
+	public E get(int index) throws IndexOutOfBoundsException
 	{
-		// TODO: Implement this method.
-		return null;
+		LLNode<E> newNode = head.next;
+		int count = 0; 
+		try{
+			while(newNode!=null){
+				count ++;
+			}
+		}
+		catch(IndexOutOfBoundsException e){
+			
+		}
 	}
 
 	/**
@@ -72,12 +80,12 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	public int size() 
 	{
 		int size = 0;
-		LLNode<E> newNode = head;
+		LLNode<E> current = head.next;
 		
-		while(newNode.next != null)
+		while(current.next != null)
 		{
 			size++;
-			newNode = newNode.next;
+			current = current.next;
 		}
 		
 		return size;
