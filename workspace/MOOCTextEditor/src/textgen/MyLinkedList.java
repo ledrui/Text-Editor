@@ -8,6 +8,7 @@ import java.util.AbstractList;
  * @author UC San Diego Intermediate Programming MOOC team
  *
  * @param <E> The type of the elements stored in the list
+ * @author Iliass 
  */
 public class MyLinkedList<E> extends AbstractList<E> {
 	LLNode<E> head;
@@ -16,17 +17,33 @@ public class MyLinkedList<E> extends AbstractList<E> {
 
 	/** Create a new empty LinkedList */
 	public MyLinkedList() {
-		// TODO: Implement this method
+		head = new LLNode<E>(null);
+		tail = new LLNode<E>(null);
+		
+		head.next = tail;
+		tail.prev = head;
+		
 	}
 
 	/**
+	 * @author Iliass
+	 * 
 	 * Appends an element to the end of the list
 	 * @param element The element to add
 	 */
 	public boolean add(E element ) 
 	{
-		// TODO: Implement this method
-		return false;
+		LLNode<E> newNode = new LLNode<E>(element);
+		try{
+		   newNode.next = this.head;
+		   head = newNode;
+		}
+		catch(IndexOutOfBoundsException e){
+			
+		}
+		if(head!=null) return true; 
+		else return false;
+		
 	}
 
 	/** Get the element at position index 
@@ -48,11 +65,22 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	}
 
 
-	/** Return the size of the list */
+	/**
+	 * @author Iliass
+	 *  Return the size of the list 
+	 * */
 	public int size() 
 	{
-		// TODO: Implement this method
-		return -1;
+		int size = 0;
+		LLNode<E> newNode = head;
+		
+		while(newNode.next != null)
+		{
+			size++;
+			newNode = newNode.next;
+		}
+		
+		return size;
 	}
 
 	/** Remove a node at the specified index and return its data element.
@@ -90,9 +118,9 @@ class LLNode<E>
 	// TODO: Add any other methods you think are useful here
 	// E.g. you might want to add another constructor
 
-	public LLNode(E e) 
+	public LLNode(E theData) 
 	{
-		this.data = e;
+		this.data = theData;
 		this.prev = null;
 		this.next = null;
 	}
