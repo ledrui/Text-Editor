@@ -133,7 +133,23 @@ public class MyLinkedListTester {
 	@Test
 	public void testSize()
 	{
-		// TODO: implement this test
+		// test on list1 size
+		try
+		{
+			System.out.println(list1.size());
+		}
+		catch(IndexOutOfBoundsException e){
+			
+		}
+		
+		// test on empty list, throw exception
+				try
+				{
+					System.out.println(emptyList.size());
+				}
+				catch(IndexOutOfBoundsException e){
+					
+				}
 	}
 
 	
