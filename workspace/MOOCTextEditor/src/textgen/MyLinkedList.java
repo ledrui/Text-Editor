@@ -53,12 +53,18 @@ public class MyLinkedList<E> extends AbstractList<E> {
 			
 			// set the last node's reference to the new node
 			current.next = newNode;
+			newNode.prev = current;
+			newNode.next = null;
 			
-			return element.equals(get(size));
 		}
 		else{
 			throw new NullPointerException();
 		}
+		
+		if(element.equals(get(size))){
+			return true;
+		}
+		else {return false ;}
 			
 	}
 
@@ -96,9 +102,25 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * @param The index where the element should be added
 	 * @param element The element to add
 	 */
-	public void add(int index, E element ) 
+	public void add(int index, E element )	
 	{
-		// TODO: Implement this method
+		LLNode<E>  newNode = new LLNode<E>(element);
+		LLNode<E> current = head;
+		LLNode<E> temp = new LLNode<E>(null);
+		
+		// check for NPE
+		if (current!=null){
+			// Traverse the list up to the index or until the end of the list
+			for(int i =1; i < index && current.next!= null; i++){
+				current = current.next;
+			}
+		}
+		
+		// 
+		temp = current.prev;
+		newNode.next = current;
+		newNode.prev = current.prev;
+		
 	}
 
 
