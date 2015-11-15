@@ -141,15 +141,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * */
 	public int size() 
 	{
-		/*int size = 0;
-		LLNode<E> current = head.next;
-		
-		while(current.next != null)
-		{
-			size++;
-			current = current.next;
-		}*/
-		
+				
 		return size;
 	}
 
@@ -162,7 +154,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	public E remove(int index) 
 	{
 		// Check for Exceptions
-		if(size == 0) throw new NoSuchElementException();
+		if(size == 0) throw new                                                                                                                                                               ();
 		
 		if(index < 0 || index > size()){
 			throw new IndexOutOfBoundsException();
@@ -175,6 +167,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 		
 		if(index == 0){
 			head = current.next;
+			head.prev = null;
 			current.next = null;
 			current.prev = null;
 			size--;
@@ -193,14 +186,16 @@ public class MyLinkedList<E> extends AbstractList<E> {
 				
 				current.prev.next = null;
 				current.prev = null;
+				size--;
 				
-				return (E) current;
+				return (E) current.data;
 			}
 			else{
 				current.prev.next = current.next;
 				current.next.prev = current.prev;
+				size--;
 				
-				return (E) current;
+				return (E) current.data;
 				
 			}
 		}
@@ -218,6 +213,21 @@ public class MyLinkedList<E> extends AbstractList<E> {
 		// TODO: Implement this method
 		return null;
 	}   
+	
+		 
+	 public String toStirng(){
+		    String output = "";
+		    if(head!=null){
+				LLNode<E> current = head.next;
+				
+				while(current.next != null)
+				{
+					output += "["+ current.data.toString() + "]" ;
+					current = current.next;
+				}
+		    }
+		    return output;
+	 }
 }
 
 class LLNode<E> 
