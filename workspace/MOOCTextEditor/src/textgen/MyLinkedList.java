@@ -1,6 +1,7 @@
 package textgen;
 
 import java.util.AbstractList;
+import java.util.NoSuchElementException;
 
 
 /** A class that implements a doubly linked list
@@ -44,7 +45,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 		else if (head != null){
 			LLNode<E> current = head;
 			/**
-			 * iterate through the list up to the end of the list and add the
+			 * traverse the list up to the end of the list and add the
 			 * element at the end of the list
 			 */
 			while(current.next!=null){
@@ -61,7 +62,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 			throw new NullPointerException();
 		}
 		
-		if(element.equals(get(size))){
+		if(element.equals(this.get(size))){
 			return true;
 		}
 		else {return false ;}
@@ -75,7 +76,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	public E get(int index) throws IndexOutOfBoundsException
 	{
 		if (index == 0) return (E)this.head;
-		else if(this.head == null){
+		else if(head == null){
 			throw new IndexOutOfBoundsException();
 		}
 		else if((index < 0 )||(index > this.size)){
@@ -102,8 +103,13 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * @param The index where the element should be added
 	 * @param element The element to add
 	 */
-	public void add(int index, E element )	
+	public void add(int index, E element ) throws IndexOutOfBoundsException
 	{
+		// check for exceptions
+		if(index < 0 || index > size){
+			throw new IndexOutOfBoundsException();
+		}
+		
 		LLNode<E>  newNode = new LLNode<E>(element);
 		LLNode<E> current = head;
 		LLNode<E> temp = new LLNode<E>(null);
@@ -114,13 +120,17 @@ public class MyLinkedList<E> extends AbstractList<E> {
 			for(int i =1; i < index && current.next!= null; i++){
 				current = current.next;
 			}
+			
+			// 
+			temp = current.prev;
+			current.prev = newNode;
+			newNode.prev = temp;
+			temp.next = newNode;
+			newNode.next = current;
 		}
-		
-		// 
-		temp = current.prev;
-		newNode.next = current;
-		newNode.prev = current.prev;
-		
+		else{
+			throw new IndexOutOfBoundsException();
+		}				
 	}
 
 
@@ -130,14 +140,14 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * */
 	public int size() 
 	{
-		int size = 0;
+		/*int size = 0;
 		LLNode<E> current = head.next;
 		
 		while(current.next != null)
 		{
 			size++;
 			current = current.next;
-		}
+		}*/
 		
 		return size;
 	}
@@ -150,8 +160,48 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 */
 	public E remove(int index) 
 	{
-		// TODO: Implement this method
-		return null;
+		// Check for Exceptions
+		if(size == 0) throw new NoSuchElementException();
+		
+		if(index < 0 || index > size()){
+			throw new IndexOutOfBoundsException();
+		}
+		
+		int kthNode = 1;
+		
+		LLNode<E> current  = head;
+		LLNode<E> temp  = new LLNode<E>(null);
+		
+		if(index == 0){
+			head = current.next;
+			current.next = null;
+			current.prev = null;
+			
+			return (E) current;
+		}
+		else{
+			
+			// Traverse the list
+			while(ithNode != index){
+				current = current.next;
+				
+				ithNode++;
+			}
+			if (current.next == null){
+				
+				current.prev.next = null;
+				current.prev = null;
+				
+				return (E) current;
+			}
+			else{
+				current.prev.next = current.next;
+				current.next.prev = current.prev;
+				
+				return (E) current;
+				
+			}
+		}
 	}
 
 	/**

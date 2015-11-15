@@ -125,7 +125,7 @@ public class MyLinkedListTester {
 	public void testAddEnd()
 	{
         
-		System.out.println(list1.toString());
+		//System.out.println(list1.toString());
 		System.out.println("Print: Lists:\t" +list1+ "\t"+shortList+"\t"+emptyList+"\t"+longerList );
 		
 	}
@@ -138,7 +138,7 @@ public class MyLinkedListTester {
 		// test on list1 size
 		try
 		{
-			System.out.println(list1.size());
+			//System.out.println(list1.size());
 			fail("fail to check the size");
 			
 		}
