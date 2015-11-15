@@ -39,6 +39,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 		
 		if(head == null){
 			head = newNode;
+			size++;
 		}
 								
 		// Check for NPE before
@@ -176,16 +177,17 @@ public class MyLinkedList<E> extends AbstractList<E> {
 			head = current.next;
 			current.next = null;
 			current.prev = null;
-			
-			return (E) current;
+			size--;
+			System.out.println("deleted: "+current.data);
+			return (E) current.data;
 		}
 		else{
 			
 			// Traverse the list
-			while(ithNode != index){
+			while(kthNode != index){
 				current = current.next;
 				
-				ithNode++;
+				kthNode++;
 			}
 			if (current.next == null){
 				
@@ -232,6 +234,12 @@ class LLNode<E>
 		this.data = theData;
 		this.prev = null;
 		this.next = null;
+	}
+	
+	public LLNode(E theData, LLNode prev, LLNode next){
+		this.data = theData;
+		this.prev = prev;
+		this.next = next;
 	}
 
 }

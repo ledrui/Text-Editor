@@ -128,6 +128,54 @@ public class MyLinkedListTester {
 		//System.out.println(list1.toString());
 		System.out.println("Print: Lists:\t" +list1+ "\t"+shortList+"\t"+emptyList+"\t"+longerList );
 		
+		// test on list1 
+				try
+				{
+					System.out.println(list1.size());
+					list1.add(23);
+					System.out.println(list1.size());
+					fail("fail to add the new element");
+					
+				}
+				catch(IndexOutOfBoundsException e){
+					
+				}
+				
+				// test on empty list, throw exception
+				try
+				{
+					System.out.println(emptyList.size());
+					list1.add(23);
+					System.out.println(emptyList.size());
+					fail("fail to add the new element");
+				}
+				catch(IndexOutOfBoundsException e){
+					
+				}
+				// Test on shortList
+				try
+				{
+					System.out.println(shortList.size());
+					list1.add(23);
+					System.out.println(shortList.size());
+					fail("fail to add the new element");
+				}
+				catch(IndexOutOfBoundsException e){
+					
+				}
+				
+				// Test on LongerList
+				try
+				{
+					System.out.println(longerList.size());
+					list1.add(23);
+					System.out.println(longerList.size());
+					fail("fail to add the new element");
+				}
+				catch(IndexOutOfBoundsException e){
+					
+				}
+		
 	}
 
 	
@@ -185,8 +233,12 @@ public class MyLinkedListTester {
 	@Test
 	public void testAddAtIndex()
 	{
-        // TODO: implement this test
-		
+        try{
+        	list1.add(-1, 5);
+        }
+		catch(IndexOutOfBoundsException e){
+			
+		}
 	}
 	
 	/** Test setting an element in the list */
