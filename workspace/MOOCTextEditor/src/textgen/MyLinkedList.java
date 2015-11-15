@@ -19,6 +19,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	public MyLinkedList() {
 		head = new LLNode<E>(null);
 		tail = new LLNode<E>(null);
+		size = 0;
 		
 		head.next = tail;
 		tail.prev = head;
@@ -31,33 +32,54 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * Appends an element to the end of the list
 	 * @param element The element to add
 	 */
-	public boolean add(E element ) 
-	{
+	public boolean add(E element )
+	{   
 		LLNode<E> newNode = new LLNode<E>(element);
-		try{
-		   newNode.next = this.head;
-		   this.head = newNode;
-		}
-		catch(IndexOutOfBoundsException e){
-			
-		}
-		if(head!=null) return true; 
-		else return false;
 		
+		if(head == null){
+			head = newNode;
+		}
+								
+		// Check for NPE before
+		else if (head != null){
+			LLNode<E> current = head;
+			/**
+			 * iterate through the list up to the end of the list and add the
+			 * element at the end of the list
+			 */
+			while(current.next!=null){
+				current = current.next;
+			}
+			
+			// set the last node's reference to the new node
+			current.next = newNode;
+			
+			return element.equals(get(size));
+		}
+		else{
+			throw new NullPointerException();
+		}
+			
 	}
 
 	/** Get the element at position index 
+	 * @author Iliass
+	 * 
 	 * @throws IndexOutOfBoundsException if the index is out of bounds. */
 	public E get(int index) throws IndexOutOfBoundsException
 	{
 		if (index == 0) return (E)this.head;
+		else if(this.head == null){
+			throw new IndexOutOfBoundsException();
+		}
 		else if((index < 0 )||(index > this.size)){
-			//throw IndexOutOfBoundsException;
+			throw new IndexOutOfBoundsException();
+			
 		}
 		else{
 			LLNode<E> newNode = head.next;
 			int count = 1; 
-			try{
+			
 				while(newNode!=null){
 					if (count == index){
 						return (E)newNode;
@@ -65,11 +87,8 @@ public class MyLinkedList<E> extends AbstractList<E> {
 					count ++;
 					newNode = newNode.next;
 				}
-			}
-			catch(IndexOutOfBoundsException e){
-				
-			}
 	   }
+		return null;
 	}
 
 	/**

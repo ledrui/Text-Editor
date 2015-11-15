@@ -43,6 +43,7 @@ public class MyLinkedListTester {
 		list1.add(65);
 		list1.add(21);
 		list1.add(42);
+		//list1.add(109);
 		
 	}
 
@@ -57,7 +58,6 @@ public class MyLinkedListTester {
 		//test empty list, get should throw an exception
 		try {
 			emptyList.get(0);
-			fail("Check out of bounds");
 		}
 		catch (IndexOutOfBoundsException e) {
 			
@@ -124,7 +124,9 @@ public class MyLinkedListTester {
 	@Test
 	public void testAddEnd()
 	{
-        // TODO: implement this test
+        
+		System.out.println(list1.toString());
+		System.out.println("Print: Lists:\t" +list1+ "\t"+shortList+"\t"+emptyList+"\t"+longerList );
 		
 	}
 
@@ -138,6 +140,7 @@ public class MyLinkedListTester {
 		{
 			System.out.println(list1.size());
 			fail("fail to check the size");
+			
 		}
 		catch(IndexOutOfBoundsException e){
 			
