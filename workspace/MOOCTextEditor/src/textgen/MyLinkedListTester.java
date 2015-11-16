@@ -126,7 +126,7 @@ public class MyLinkedListTester {
 	{
         
 		//System.out.println(list1.toString());
-		System.out.println("Print: Lists:\t" +list1+ "\t"+shortList+"\t"+emptyList+"\t"+longerList );
+		System.out.println("Print: Lists:\t" +list1.toStirng()+ "\t"+shortList.toStirng());
 		
 		// test on list1 
 				try
@@ -140,6 +140,9 @@ public class MyLinkedListTester {
 				catch(IndexOutOfBoundsException e){
 					
 				}
+				
+				assertEquals("Add: check element 0 is correct ", (Integer)21, list1.get(0));
+				assertEquals("Add: check size is correct ", 4 , list1.size());
 				
 				// test on empty list, throw exception
 				try
@@ -245,7 +248,15 @@ public class MyLinkedListTester {
 	@Test
 	public void testSet()
 	{
-	    // TODO: implement this test
+		try{
+			int a = list1.set(0, 100);
+			assertEquals("set: check  is correct ", 100, a);
+			assertEquals("Set: check element 0 is correct ", (Integer)21, list1.get(0));
+			assertEquals("Set: check size is correct ", 3, list1.size());
+		}
+		catch(IndexOutOfBoundsException e){
+			
+		}
 	    
 	}
 	
