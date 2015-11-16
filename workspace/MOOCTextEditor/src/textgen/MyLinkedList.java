@@ -30,6 +30,34 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	/**
 	 * @author Iliass
 	 * 
+	 * Return a Node at a particular index of the list
+	 * 
+	 * @param index 
+	 * */
+	public LLNode<E> getNode(int index){
+		LLNode<E> current = new LLNode<E>(null);
+		// forward traversal
+		if(index < size/2){
+			current = head.next;
+			int i=0;
+			while(i < index && current != null){
+				current = current.next;
+			}
+		}else{
+			current = tail.prev;
+			int j = size;
+			while(j > index && current != null){
+				current = current.prev;
+			}
+		}
+		
+		return current;
+	}
+	
+	
+	/**
+	 * @author Iliass
+	 * 
 	 * Appends an element to the end of the list
 	 * @param element The element to add
 	 */
@@ -51,12 +79,17 @@ public class MyLinkedList<E> extends AbstractList<E> {
 			 */
 			while(current.next!=null){
 				current = current.next;
+				
+				
 			}
 			
 			// set the last node's reference to the new node
 			current.next = newNode;
 			newNode.prev = current;
 			newNode.next = null;
+			
+			// update size
+			size ++;
 			
 		}
 		else{
@@ -70,25 +103,22 @@ public class MyLinkedList<E> extends AbstractList<E> {
 			
 	}
 
+	
 	/** Get the element at position index 
 	 * @author Iliass
 	 * 
 	 * @throws IndexOutOfBoundsException if the index is out of bounds. */
 	public E get(int index) throws IndexOutOfBoundsException
 	{
-		if (index == 0) return (E)this.head;
-		else if(head == null){
-			throw new IndexOutOfBoundsException();
-		}
-		else if((index < 0 )||(index > this.size)){
+		if((index < 0 )||(index > this.size-1)){
 			throw new IndexOutOfBoundsException();
 			
 		}
 		else{
 			LLNode<E> newNode = head.next;
-			int count = 1; 
+			int count = 0; 
 			
-				while(newNode!=null){
+				while(index!=count){
 					if (count == index){
 						return (E)newNode;
 					}
@@ -154,7 +184,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	public E remove(int index) 
 	{
 		// Check for Exceptions
-		if(size == 0) throw new                                                                                                                                                               ();
+		if(size == 0) throw new  NoSuchElementException();
 		
 		if(index < 0 || index > size()){
 			throw new IndexOutOfBoundsException();
