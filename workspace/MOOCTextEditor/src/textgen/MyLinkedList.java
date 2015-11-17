@@ -42,12 +42,14 @@ public class MyLinkedList<E> extends AbstractList<E> {
 			int i=0;
 			while(i < index && current != null){
 				current = current.next;
+				i++;
 			}
 		}else{
 			current = tail.prev;
 			int j = size;
 			while(j > index && current != null){
 				current = current.prev;
+				j--;
 			}
 		}
 		
@@ -78,9 +80,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 			 * element at the end of the list
 			 */
 			while(current.next!=null){
-				current = current.next;
-				
-				
+				current = current.next;			
 			}
 			
 			// set the last node's reference to the new node
