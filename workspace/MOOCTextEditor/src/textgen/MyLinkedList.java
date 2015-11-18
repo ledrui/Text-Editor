@@ -30,36 +30,6 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	/**
 	 * @author Iliass
 	 * 
-	 * Return a Node at a particular index of the list
-	 * 
-	 * @param index 
-	 * */
-	public LLNode<E> getNode(int index){
-		LLNode<E> current = new LLNode<E>(null);
-		// forward traversal
-		if(index < size/2){
-			current = head.next;
-			int i=0;
-			while(i < index ){
-				current = current.next;
-				i++;
-			}
-		}else{
-			current = tail.prev;
-			int j = size;
-			while(j > index ){
-				current = current.prev;
-				j--;
-			}
-		}
-		
-		return current;
-	}
-	
-	
-	/**
-	 * @author Iliass
-	 * 
 	 * Appends an element to the end of the list
 	 * @param element The element to add
 	 */
@@ -109,7 +79,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * @throws IndexOutOfBoundsException if the index is out of bounds. */
 	public E get(int index) throws IndexOutOfBoundsException
 	{
-		LLNode<E> current = new LLNode(null);
+		LLNode<E> current = new LLNode<E>(null);
 		
 		if((index < 0 )||(index > this.size-1)){
 			throw new IndexOutOfBoundsException();
@@ -129,7 +99,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 				current = current.prev;
 			}
 		}
-		
+		return current.data;
 	}
 
 	/**
@@ -151,7 +121,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 		// check for NPE
 		if (current!=null){
 			// Traverse the list up to the index or until the end of the list
-			for(int i =1; i < index && current.next!= null; i++){
+			for(int i = 0; i < index && current.next!= null; i++){
 				current = current.next;
 			}
 			
@@ -161,7 +131,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 			newNode.prev = temp;
 			temp.next = newNode;
 			newNode.next = current;
-			
+			System.out.println("Added: "+ current.data + "at index" + index);
 			// Increment size;
 			size++;
 		}
@@ -207,7 +177,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 			current.next = null;
 			current.prev = null;
 			size--;
-			System.out.println("deleted: "+current.data);
+			System.out.println("deleted: "+ current.data);
 			return (E) current.data;
 		}
 		else{
@@ -230,6 +200,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 				current.prev.next = current.next;
 				current.next.prev = current.prev;
 				size--;
+				System.out.println("deleted: "+ current.data);
 				
 				return (E) current.data;
 				

@@ -189,7 +189,7 @@ public class MyLinkedListTester {
 		// test on list1 size
 		try
 		{
-			//System.out.println(list1.size());
+			System.out.println(list1.size());
 			fail("fail to check the size");
 			
 		}
