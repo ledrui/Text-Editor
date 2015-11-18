@@ -68,8 +68,11 @@ public class MyLinkedList<E> extends AbstractList<E> {
 		LLNode<E> newNode = new LLNode<E>(element);
 		
 		if(head == null){
+			newNode.prev = null;
 			head = newNode;
+			
 			size++;
+			return true;
 		}
 								
 		// Check for NPE before
@@ -87,20 +90,16 @@ public class MyLinkedList<E> extends AbstractList<E> {
 			current.next = newNode;
 			newNode.prev = current;
 			newNode.next = null;
-			
 			// update size
-			size ++;
+						size ++;
 			
-		}
-		else{
-			throw new NullPointerException();
-		}
-		
-		if(element.equals(this.get(size))){
 			return true;
-		}
-		else {return false ;}
 			
+		}else{
+			return false;
+		}
+	
+				
 	}
 
 	
@@ -110,15 +109,26 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * @throws IndexOutOfBoundsException if the index is out of bounds. */
 	public E get(int index) throws IndexOutOfBoundsException
 	{
+		LLNode<E> current = new LLNode(null);
+		
 		if((index < 0 )||(index > this.size-1)){
 			throw new IndexOutOfBoundsException();
 			
 		}
-		else{
-			if(index < size/2){
-				
+		
+		if(index < size/2){
+			current = head;
+			for(int i=0; i < index; i++){
+				current = current.next;
 			}
-	   }
+			
+		}
+		if(index > size/2){
+			current = tail;
+			for(int j = size; j >= index; --j ){
+				current = current.prev;
+			}
+		}
 		
 	}
 
