@@ -40,14 +40,14 @@ public class MyLinkedList<E> extends AbstractList<E> {
 		if(index < size/2){
 			current = head.next;
 			int i=0;
-			while(i < index && current != null){
+			while(i < index ){
 				current = current.next;
 				i++;
 			}
 		}else{
 			current = tail.prev;
 			int j = size;
-			while(j > index && current != null){
+			while(j > index ){
 				current = current.prev;
 				j--;
 			}
