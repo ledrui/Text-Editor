@@ -115,7 +115,9 @@ public class MyLinkedList<E> extends AbstractList<E> {
 			
 		}
 		else{
-			return getNode(index).data;
+			if(index < size/2){
+				
+			}
 	   }
 		
 	}
