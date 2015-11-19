@@ -126,7 +126,7 @@ public class MyLinkedListTester {
 	{
         
 		//System.out.println(list1.toString());
-		System.out.println("Print: Lists:\t" +list1.toStirng()+ "\t"+shortList.toStirng());
+		//System.out.println("Print: Lists:\t" +list1.toStirng()+ "\t"+shortList.toStirng());
 		
 		// test on list1 
 				try
