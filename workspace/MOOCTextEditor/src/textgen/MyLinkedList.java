@@ -37,7 +37,13 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	{   
 		
 		this.add(size, element);
-		return(size == size+1);
+		
+		// return condition
+		if(size == size+1){
+		return true;
+		}else{
+			return false;
+		}
 		
 		/*
 		LLNode<E> newNode = new LLNode<E>(element);
