@@ -12,16 +12,18 @@ public class DictionaryLL implements Dictionary
 	private LinkedList<String> dict;
 	
     // TODO: Add a constructor
-
-
+	public DictionaryLL(){
+		
+	}
+	
     /** Add this word to the dictionary.  Convert it to lowercase first
      * for the assignment requirements.
      * @param word The word to add
      * @return true if the word was added to the dictionary 
      * (it wasn't already there). */
     public boolean addWord(String word) {
-    	// TODO: Implement this method
-        return false;
+    	word = word.toLowerCase();
+        return dict.add(word);
     }
 
 
