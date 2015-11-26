@@ -13,6 +13,11 @@ public class DictionaryLL implements Dictionary
 	
     // TODO: Add a constructor
 	public DictionaryLL(){
+				
+	}
+	
+	public DictionaryLL(LinkedList<String> dictionary){
+		this.dict = dictionary;
 		
 	}
 	
@@ -22,8 +27,17 @@ public class DictionaryLL implements Dictionary
      * @return true if the word was added to the dictionary 
      * (it wasn't already there). */
     public boolean addWord(String word) {
-    	word = word.toLowerCase();
-        return dict.add(word);
+    	if(isWord(word)){
+	    	word = word.toLowerCase();
+	    	int preSize = dict.size();
+	        dict.add(word);
+	        if(dict.size() == preSize){
+	        	return false;
+	        }
+	        else
+	        	return true;
+    	}
+    	return false;
     }
 
 
