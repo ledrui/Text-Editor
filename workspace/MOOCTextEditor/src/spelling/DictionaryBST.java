@@ -28,7 +28,7 @@ public class DictionaryBST implements Dictionary
 	    	word = word.toLowerCase();
 	        boolean temp = dict.add(word);
 	        // System.out.print(temp);
-	        return true;
+	        return temp;
 	     }
     	return false;
     }
@@ -43,7 +43,7 @@ public class DictionaryBST implements Dictionary
 
     /** Is this a word according to this dictionary? */
     public boolean isWord(String s) {
-    	s = s.toLowerCase();
+    	//s = s.toLowerCase();
         return isWord(s);
     }
 
