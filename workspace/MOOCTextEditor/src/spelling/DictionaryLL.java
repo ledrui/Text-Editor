@@ -13,14 +13,11 @@ public class DictionaryLL implements Dictionary
 	
     // TODO: Add a constructor
 	public DictionaryLL(){
-				
+		this.dict = new LinkedList<String>();
+
 	}
 	
-	public DictionaryLL(LinkedList<String> dictionary){
-		this.dict = dictionary;
 		
-	}
-	
     /** Add this word to the dictionary.  Convert it to lowercase first
      * for the assignment requirements.
      * @param word The word to add
@@ -31,7 +28,7 @@ public class DictionaryLL implements Dictionary
 	    	word = word.toLowerCase();
 	    	int preSize = dict.size();
 	        dict.add(word);
-	        if(dict.size() == preSize){
+	        if(this.dict.size() == preSize+1){
 	        	return false;
 	        }
 	        else

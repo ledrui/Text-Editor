@@ -1,5 +1,6 @@
 package spelling;
 
+import java.util.LinkedList;
 import java.util.TreeSet;
 
 /**
@@ -11,7 +12,10 @@ public class DictionaryBST implements Dictionary
    private TreeSet<String> dict;
 	
     // TODO: Implement the dictionary interface using a TreeSet.  
- 	// You'll need a constructor here
+   public DictionaryBST(){
+		this.dict = new TreeSet<String>();
+
+	}
 	
     
     /** Add this word to the dictionary.  Convert it to lowercase first
@@ -20,8 +24,13 @@ public class DictionaryBST implements Dictionary
      * @return true if the word was added to the dictionary 
      * (it wasn't already there). */
     public boolean addWord(String word) {
-    	word = word.toLowerCase();
-        return dict.add(word);
+    	if(isWord(word)){
+	    	word = word.toLowerCase();
+	        boolean temp = dict.add(word);
+	        // System.out.print(temp);
+	        return true;
+	     }
+    	return false;
     }
 
 
