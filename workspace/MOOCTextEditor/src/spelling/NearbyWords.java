@@ -76,7 +76,22 @@ public class NearbyWords implements SpellingSuggest {
 	 * @return
 	 */
 	public void insertions(String s, List<String> currentList, boolean wordsOnly ) {
-		// TODO: Implement this method  
+		for(int index = 0; index < s.length(); index++){
+			for(int charCode = (int)'a'; charCode <= (int)'z'; charCode++) {
+				// use StringBuffer for an easy interface to permuting the 
+				// letters in the String
+				StringBuffer sb = new StringBuffer(s);
+				sb.insert(index, (char)charCode);
+
+				// if the item isn't in the list, isn't the original string, and
+				// (if wordsOnly is true) is a real word, add to the list
+				if(!currentList.contains(sb.toString()) && 
+						(!wordsOnly||dict.isWord(sb.toString())) &&
+						!s.equals(sb.toString())) {
+					currentList.add(sb.toString());
+				}
+			}
+		}  
 	}
 
 	/** Add to the currentList Strings that are one character deletion away
@@ -85,9 +100,19 @@ public class NearbyWords implements SpellingSuggest {
 	 * @param currentList is the list of words to append modified words 
 	 * @param wordsOnly controls whether to return only words or any String
 	 * @return
+	 * @author Iliass
 	 */
 	public void deletions(String s, List<String> currentList, boolean wordsOnly ) {
-		// TODO: Implement this method
+		char arrS[] = s.toCharArray(); 
+		for (int index = s.length(); index < 0; index--){
+			
+			if(!currentList.contains(s) && 
+					(!wordsOnly||dict.isWord(sb.toString())) &&
+					!s.equals(sb.toString())) {
+				currentList.add(sb.toString());
+			}		
+			
+		}
 	}
 
 	/** Add to the currentList Strings that are one character deletion away
