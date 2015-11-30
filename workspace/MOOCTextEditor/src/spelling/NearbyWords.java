@@ -70,6 +70,7 @@ public class NearbyWords implements SpellingSuggest {
 	
 	/** Add to the currentList Strings that are one character insertion away
 	 * from the input string.  
+	 * @author Iliass
 	 * @param s The original String
 	 * @param currentList is the list of words to append modified words 
 	 * @param wordsOnly controls whether to return only words or any String
@@ -80,7 +81,7 @@ public class NearbyWords implements SpellingSuggest {
 			for(int charCode = (int)'a'; charCode <= (int)'z'; charCode++) {
 				// use StringBuffer for an easy interface to permuting the 
 				// letters in the String
-				StringBuffer sb = new StringBuffer(s);
+				StringBuilder sb = new StringBuilder(s);
 				sb.insert(index, (char)charCode);
 
 				// if the item isn't in the list, isn't the original string, and
@@ -96,20 +97,21 @@ public class NearbyWords implements SpellingSuggest {
 
 	/** Add to the currentList Strings that are one character deletion away
 	 * from the input string.  
+	 * @author Iliass
 	 * @param s The original String
 	 * @param currentList is the list of words to append modified words 
 	 * @param wordsOnly controls whether to return only words or any String
 	 * @return
-	 * @author Iliass
 	 */
 	public void deletions(String s, List<String> currentList, boolean wordsOnly ) {
-		char arrS[] = s.toCharArray(); 
+		StringBuffer sb = new StringBuffer(s);
+		
 		for (int index = s.length(); index < 0; index--){
-			
-			if(!currentList.contains(s) && 
-					(!wordsOnly||dict.isWord(sb.toString())) &&
-					!s.equals(sb.toString())) {
-				currentList.add(sb.toString());
+			String newStr = sb.substring(0, index);
+			if(!currentList.contains(newStr) && 
+					(!wordsOnly||dict.isWord(newStr)) &&
+					!s.equals(newStr)) {
+				currentList.add(newStr);
 			}		
 			
 		}
