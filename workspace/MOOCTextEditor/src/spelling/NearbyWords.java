@@ -81,7 +81,7 @@ public class NearbyWords implements SpellingSuggest {
 			for(int charCode = (int)'a'; charCode <= (int)'z'; charCode++) {
 				// use StringBuffer for an easy interface to permuting the 
 				// letters in the String
-				StringBuilder sb = new StringBuilder(s);
+				StringBuffer sb = new StringBuffer(s);
 				sb.insert(index, (char)charCode);
 
 				// if the item isn't in the list, isn't the original string, and
@@ -104,15 +104,16 @@ public class NearbyWords implements SpellingSuggest {
 	 * @return
 	 */
 	public void deletions(String s, List<String> currentList, boolean wordsOnly ) {
-		StringBuffer sb = new StringBuffer(s);
-		
-		for (int index = s.length(); index < 0; index--){
-			String newStr = sb.substring(0, index);
-			if(!currentList.contains(newStr) && 
-					(!wordsOnly||dict.isWord(newStr)) &&
-					!s.equals(newStr)) {
-				currentList.add(newStr);
-			}		
+				
+		for (int index = 0; index < s.length(); index++){
+			StringBuffer sb = new StringBuffer(s);
+			
+			StringBuffer newStr = sb.deleteCharAt(index);
+			if(!currentList.contains(newStr.toString()) && 
+					(!wordsOnly||dict.isWord(newStr.toString())) &&
+					!s.equals(newStr.toString())) {
+				currentList.add(newStr.toString());
+			}	
 			
 		}
 	}
@@ -144,7 +145,7 @@ public class NearbyWords implements SpellingSuggest {
 	}	
 
    public static void main(String[] args) {
-	   /* basic testing code to get started
+	   /* basic testing code to get started*/
 	   String word = "i";
 	   // Pass NearbyWords any Dictionary implementation you prefer
 	   Dictionary d = new DictionaryHashSet();
@@ -158,7 +159,7 @@ public class NearbyWords implements SpellingSuggest {
 	   List<String> suggest = w.suggestions(word, 10);
 	   System.out.println("Spelling Suggestions for \""+word+"\" are:");
 	   System.out.println(suggest);
-	   */
+	   
    }
 
 }

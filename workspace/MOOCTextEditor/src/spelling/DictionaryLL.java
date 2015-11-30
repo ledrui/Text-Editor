@@ -24,31 +24,20 @@ public class DictionaryLL implements Dictionary
      * @return true if the word was added to the dictionary 
      * (it wasn't already there). */
     public boolean addWord(String word) {
-    	if(isWord(word)){
-	    	word = word.toLowerCase();
-	    	int preSize = dict.size();
-	        dict.add(word);
-	        if(this.dict.size() == preSize+1){
-	        	return false;
-	        }
-	        else
-	        	return true;
-    	}
-    	return false;
+    	return dict.add(word.toLowerCase());
     }
 
 
     /** Return the number of words in the dictionary */
     public int size()
     {
-        
         return dict.size();
     }
 
     /** Is this a word according to this dictionary? */
     public boolean isWord(String s) {
         s = s.toLowerCase();
-        return isWord(s);
+        return dict.contains(s);
     }
 
     
