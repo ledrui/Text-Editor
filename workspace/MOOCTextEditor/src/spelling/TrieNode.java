@@ -32,7 +32,7 @@ class TrieNode {
 	 * link from the given Character 
 	 * @param c The next character in the key
 	 * @return The TrieNode that character links to, or null if that link
-	 *   is not in the trie.
+	 *   is not in the trie.                            
 	 */
 	public TrieNode getChild(Character c)
 	{

@@ -82,7 +82,7 @@ public class NearbyWords implements SpellingSuggest {
 				// use StringBuffer for an easy interface to permuting the 
 				// letters in the String
 				StringBuffer sb = new StringBuffer(s);
-				sb.insert(index, (char)charCode);
+				sb.insert(index-1, (char)charCode);
 
 				// if the item isn't in the list, isn't the original string, and
 				// (if wordsOnly is true) is a real word, add to the list
