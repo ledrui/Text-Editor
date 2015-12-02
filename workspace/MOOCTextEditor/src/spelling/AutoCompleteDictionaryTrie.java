@@ -29,12 +29,11 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	public boolean addWord(String word)
 	{
 		word = word.toLowerCase();
+		if(root.getChild(currChar) == null){
 		for (int i = 0; i < word.length(); i++){
 			char currChar = word.charAt(i);
-			if(root.getChild(currChar) == null){
-				root.setEndsWord(true);
-			}
-			
+				root.insert(currChar);
+		     }
 		}
 			
 	}
