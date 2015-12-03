@@ -28,17 +28,36 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	 * That is, you should convert the string to all lower case as you insert it. */
 	public boolean addWord(String word)
 	{
-		TrieNode currentNode;
-		word = word.toLowerCase();
-		/*if we don't already have a word that start with this char, add the char */
-		if (root.getChild(word.charAt(0)) == null){
-			root.insert(word.charAt(0));
+		if (word.isEmpty()){
+			return false;
 		}
-		else{
-			/* Otherwise get the node that contains char */
-			root.getChild(word.charAt(0));
+		
+		HashMap<Character, TrieNode> children = root.getChildren();
+		TrieNode currentNode = null;
+		
+		for(int i = 0; i < word.length(); i++){
+			Character currChar = word.charAt(i);
+			
+			
+			if(children.containsKey(currChar)){
+				currentNode = root.getChild(currChar);
+			}else{
+				/* the current char doesn't already exist in the trie 
+				 * create a new node to insert it*/
+				currentNode = new TrieNode(currChar.toString());
+				children.put(currChar, currentNode );			
+				}
+			children = currentNode.getChildren();
+			
+			// set isWord
+			if(i == word.length()-1){
+				currentNode.setEndsWord(true);
+				// update size
+				size++;
+			}
 			
 		}
+		return currentNode.endsWord();		
 	}
 
 
@@ -55,15 +74,36 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	
 	
 	/** Returns whether the string is a word in the trie */
-	@Override
+	
 	public boolean isWord(String s) 
 	{
 	    s = s.toLowerCase();
-	    char charArr[] = s.toCharArray();
-	    for (int i = 0; i < s.length(); i++){
-	    	
-	    }
-		return false;
+	    TrieNode tempNode = searchNode(s);
+	    
+	    if(tempNode != null && tempNode.endsWord())
+	    	return true;
+	    else
+	    	return false;
+	   }
+	
+	/**
+	 *  search a node down 
+	 * @param String word
+	 * 
+	 * */
+	public TrieNode searchNode( String s){
+		HashMap children = root.getChildren();
+		TrieNode t = null;
+		for(int i = 0; i < s.length(); i++){
+			Character c = s.charAt(i);
+			if(children.containsKey(c)){
+				t = (TrieNode) children.get(c);
+				children = t.getChildren();
+			}else{
+				return null;
+			}
+		}
+		return t;
 	}
 
 	/** 

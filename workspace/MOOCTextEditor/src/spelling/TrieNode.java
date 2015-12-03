@@ -28,6 +28,14 @@ class TrieNode {
 		this.text = text;
 	}
 	
+	/*
+	 * @author Iliass
+	 * return the all the children of the Trie
+	 * */
+	public HashMap getChildren(){
+		return this.children;
+	}
+	
 	/** Return the TrieNode that is the child when you follow the 
 	 * link from the given Character 
 	 * @param c The next character in the key
