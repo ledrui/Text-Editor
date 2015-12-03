@@ -38,6 +38,7 @@ public class DocumentBenchmarking {
 		// TODO: Fill in the rest of this method so that it runs two loops
 		// and prints out timing results as described in the assignment 
 		// instructions.
+		System.out.println("Size" + "\t" + "BasicDoc" + "\t" + "EfficientDoc" +"\n");
 		for (int numToCheck = start; numToCheck < numSteps*increment + start; 
 				numToCheck += increment)
 		{
@@ -46,16 +47,16 @@ public class DocumentBenchmarking {
 			
 			// Each time through this loop you should:
 			// 1. Print out numToCheck followed by a tab (\t) (NOT a newline)
-			//
-						
-			//
 			 // 2. Read numToCheck characters from the file into a String
 			  String text =  getStringFromFile(textfile, numToCheck);
 			 //3. Time a loop that runs trials times (trials is the variable above) that:
 			 
+			
+			 
+			  
 			  long startTime = System.nanoTime(); 
-			  for( int i = 0; i<trials ; i++ ){
-			// a. Creates an BasicDocument
+			  for( int i = 0; i < trials ; i++ ){
+				// a. Creates an BasicDocument
 				  BasicDocument basicDoc = new BasicDocument(text);
 			 //     b. Calls fleshScore on this document
 				  basicDoc.getFleschScore();
@@ -64,24 +65,22 @@ public class DocumentBenchmarking {
 			  }
 			 //     (on the same line as the first print statement) followed by a tab (\t)
 			  long endTime = System.nanoTime();
-			  long loopTime = (long) ((endTime - startTime)/100000000.0);
+			  long loopTime = (long) (endTime - startTime);
 			  
 			 // 5. Time a loop that runs trials times (trials is the variable above) that:
+			  //     a. Creates an EfficientDocument 
+			  EfficientDocument effDoc = new EfficientDocument(text);
+			  
 			  long startTime2 = System.nanoTime();
 			  for (int i = 0; i < trials; i++){
-			 //     a. Creates an EfficientDocument 
-				  EfficientDocument effDoc = new EfficientDocument(text);
-			 //     b. Calls fleshScore on this document
+				//     b. Calls fleshScore on this document
 				  effDoc.getFleschScore();
 			  }
-			  long endTime2 = System.nanoTime();
-			  
-			  long loopTime2 = (long)((endTime2 - startTime2)/100000000.0);
+			  long endTime2 = System.nanoTime(); 
+			  long loopTime2 = (long)(endTime2 - startTime2);
 			 // 6. Print out the time it took to complete the loop in step 5 
 			 //      (on the same line as the first print statement) followed by a newline (\n) 
-			  
-			 //  
-		
+			 
 			 System.out.println(numToCheck + "\t" + loopTime + "\t" + loopTime2 +"\n");
 		}
 	

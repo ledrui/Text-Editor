@@ -46,13 +46,19 @@ public class EfficientDocument extends Document {
 		
 		// TODO: Finish this method.  Remember the countSyllables method from 
 		// Document.  That will come in handy here.
+		
+		String lastTok = "" ;
 		for(String tok : tokens){
 			if(isWord(tok)){
-				numWords = getNumWords();
-				numSentences = getNumSentences();
-				numSyllables = getNumSyllables();
-			}
+				numWords++;	
+			}else{
+			numSentences++;
+			lastTok = tok;
+			}	
 		}
+		//if()
+		// counting number of syllables
+		numSyllables = countSyllables(getText());
 	}
 	
 	
@@ -65,8 +71,7 @@ public class EfficientDocument extends Document {
 	 */
 	@Override
 	public int getNumWords() {
-		List <String> tokens =  getTokens("[a-zA-Z]+");
-		numWords = tokens.size();
+		
 		return numWords;
 	}
 
@@ -80,8 +85,6 @@ public class EfficientDocument extends Document {
 	 */
 	@Override
 	public int getNumSentences() {
-		List <String> tokens =  getTokens("[^!?.]+");
-		numSentences =  (tokens.size());
 		return numSentences;
 	}
 
@@ -95,13 +98,6 @@ public class EfficientDocument extends Document {
 	 */
 	@Override
 	public int getNumSyllables() {
-		List<String> words = new ArrayList<String>();
-		words = getTokens("[a-zA-Z]+");
-		int NumSyl = 0 ;
-		for (String word : words){   		
-			NumSyl += countSyllables(word);
-		}
-		numSyllables = NumSyl;
 		
 		return numSyllables; 
 			   

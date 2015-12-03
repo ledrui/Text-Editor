@@ -8,13 +8,13 @@ import java.util.LinkedList;
 
 /** 
  * An trie data structure that implements the Dictionary and the AutoComplete ADT
- * @author You
+ * @author Iliass 
  *
  */
 public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 
     private TrieNode root;
-    private int size;
+    private int size = 0;
     
 
     public AutoCompleteDictionaryTrie()
@@ -28,19 +28,17 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	 * That is, you should convert the string to all lower case as you insert it. */
 	public boolean addWord(String word)
 	{
+		TrieNode currentNode;
 		word = word.toLowerCase();
-		if(root.getChild(word.charAt(0)) == null){
-		for (int i = 0; i < word.length(); i++){
-			char currChar = word.charAt(i);
-				root.insert(currChar);
-		     }
-		root.setEndsWord(true);
+		/*if we don't already have a word that start with this char, add the char */
+		if (root.getChild(word.charAt(0)) == null){
+			root.insert(word.charAt(0));
 		}
-		if (root.endsWord() == true){
-			return true;
-		}
-		else{ return false; }
+		else{
+			/* Otherwise get the node that contains char */
+			root.getChild(word.charAt(0));
 			
+		}
 	}
 
 
@@ -51,7 +49,8 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	public int size()
 	{
 	    
-	    return root.getChild();
+	    return size;
+	    		
 	}
 	
 	
@@ -60,7 +59,10 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	public boolean isWord(String s) 
 	{
 	    s = s.toLowerCase();
-	    ch
+	    char charArr[] = s.toCharArray();
+	    for (int i = 0; i < s.length(); i++){
+	    	
+	    }
 		return false;
 	}
 
