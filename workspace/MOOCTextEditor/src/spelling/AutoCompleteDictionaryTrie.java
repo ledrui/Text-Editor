@@ -1,6 +1,7 @@
 package spelling;
 
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,13 +27,14 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	/** Insert a word into the trie.
 	 * For the basic part of the assignment (part 2), you should ignore the word's case.
 	 * That is, you should convert the string to all lower case as you insert it. */
+	
 	public boolean addWord(String word)
 	{
 		if (word.isEmpty()){
 			return false;
 		}
 		
-		HashMap<Character, TrieNode> children = root.getChildren();
+		HashMap<Character, TrieNode> children = root.children;
 		TrieNode currentNode = null;
 		
 		for(int i = 0; i < word.length(); i++){
@@ -40,14 +42,14 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 			
 			
 			if(children.containsKey(currChar)){
-				currentNode = root.getChild(currChar);
+				currentNode = children.get(currChar);
 			}else{
 				/* the current char doesn't already exist in the trie 
 				 * create a new node to insert it*/
 				currentNode = new TrieNode(currChar.toString());
 				children.put(currChar, currentNode );			
 				}
-			children = currentNode.getChildren();
+			children = currentNode.children;
 			
 			// set isWord
 			if(i == word.length()-1){
@@ -91,14 +93,16 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	 * @param String word
 	 * 
 	 * */
+	
 	public TrieNode searchNode( String s){
-		HashMap children = root.getChildren();
+		
+		HashMap<Character, TrieNode> children = root.children;
 		TrieNode t = null;
 		for(int i = 0; i < s.length(); i++){
 			Character c = s.charAt(i);
 			if(children.containsKey(c)){
 				t = (TrieNode) children.get(c);
-				children = t.getChildren();
+				children = t.children;
 			}else{
 				return null;
 			}
@@ -113,7 +117,8 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
      * @param text The text to use at the word stem
      * @param n The maximum number of predictions desired.
      * @return A list containing the up to n best predictions
-     */@Override
+     */
+	//@Override
      public List<String> predictCompletions(String prefix, int numCompletions) 
      {
     	 // TODO: Implement this method
@@ -131,7 +136,23 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     	 //       Add all of its child nodes to the back of the queue
     	 // Return the list of completions
     	 
-         return null;
+    	 Queue < TrieNode> q = new LinkedList< TrieNode >();
+    	 q.add(root.getChild(prefix.charAt(0)));
+    	 List <String> completionList = new LinkedList<String>();
+    	 
+    	 while(!q.isEmpty()){
+    		 TrieNode curr = q.remove();
+    		 if(isWord(curr.getText()) ){
+    			 completionList.add(curr.getText());
+    		 
+	    		 while(curr != null){
+	    			// ((Object) curr).visit();
+	    			 q.add(curr.getValidNextCharacters());
+	    		 }
+    		 }
+    	 }
+    	 
+         return completionList;
      }
 
  	// For debugging

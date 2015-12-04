@@ -50,15 +50,19 @@ public class EfficientDocument extends Document {
 		String lastTok = "" ;
 		for(String tok : tokens){
 			if(isWord(tok)){
+				// counting number of syllables
+				numSyllables += countSyllables(tok);
 				numWords++;	
 			}else{
 			numSentences++;
 			lastTok = tok;
 			}	
 		}
-		//if()
-		// counting number of syllables
-		numSyllables = countSyllables(getText());
+
+		if((tokens.lastIndexOf(lastTok)+1)!=tokens.size()) {
+			numSentences++;
+		}
+		
 	}
 	
 	

@@ -9,7 +9,7 @@ import java.util.Set;
  *
  */
 class TrieNode {
-	private HashMap<Character, TrieNode> children; 
+	public HashMap<Character, TrieNode> children; 
 	private String text;  // Maybe omit for space
 	private boolean isWord;
 	
