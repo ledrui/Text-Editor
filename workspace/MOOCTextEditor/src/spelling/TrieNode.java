@@ -41,7 +41,13 @@ class TrieNode {
 	        return trieNodes;
 	    }
 
-	
+	 /** Whether this node's children contain character
+	     * @param The character to check
+	     * @return Boolean */
+	    public boolean containsChar(char character) {
+	        return children.containsKey(character);
+	    }
+	 
 	/** Return the TrieNode that is the child when you follow the 
 	 * link from the given Character 
 	 * @param c The next character in the key

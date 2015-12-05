@@ -23,7 +23,40 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	{
 		root = new TrieNode();
 	}
-	
+	////////////////////////////////////////////////////////////////////////////////////
+    
+    /** Internal method to add a word to the trie
+     * @param Char array containing the word to be added */
+    private void addWord(String word) {
+    	word = word.toLowerCase();
+        TrieNode currentNode;
+
+        /* If we don't already have a word that starts with this char, add the char */
+        if ( !root.containsKey(word.charAt(0)) ) {
+            currentNode = new TrieNode(word.charAt(0));
+            root.put(word[0], currentNode);
+
+        } else {
+            /* Otherwise get the node that contains char */
+            currentNode = root.get(word[0]);
+        }
+
+        for ( int i = 1; i < word.length; i++ ) {
+            /* If a child has this char, walk down to the next level */
+            if ( currentNode.containsChar(word[i]) ) {
+                currentNode = currentNode.getNode(word[i]);
+            } else {
+                /* Otherwise add the char */
+                currentNode.addChild(word[i]);
+                currentNode = currentNode.getNode(word[i]);
+            }
+        }
+
+        /* We are at the end of the word */
+        currentNode.isWord = true;
+    }
+    
+    ///////////////////////////////////////////////////////////////////////////////////
 	
 	/** Insert a word into the trie.
 	 * For the basic part of the assignment (part 2), you should ignore the word's case.
@@ -158,7 +191,9 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     		 
 	    		 while(curr != null){
 	    			/* add all his children to the back of the queue */
-	    			 q.add(curr.children);
+	    			 for(TrieNode node:curr.getChildren()){
+	    				 q.add(node);
+	    			 }
 	    			 
 	    		 }
     		 }
