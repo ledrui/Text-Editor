@@ -1,5 +1,6 @@
 package spelling;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -9,7 +10,7 @@ import java.util.Set;
  *
  */
 class TrieNode {
-	public HashMap<Character, TrieNode> children; 
+	HashMap<Character, TrieNode> children; 
 	private String text;  // Maybe omit for space
 	private boolean isWord;
 	
@@ -28,13 +29,18 @@ class TrieNode {
 		this.text = text;
 	}
 	
-	/*
+	/**
 	 * @author Iliass
 	 * return the all the children of the Trie
 	 * */
-	public HashMap getChildren(){
-		return this.children;
-	}
+	 public ArrayList<TrieNode> getChildren() {
+	        ArrayList<TrieNode> trieNodes = new ArrayList<TrieNode>();
+	        for ( TrieNode node : children.values() ) {
+	            trieNodes.add(node);
+	        }
+	        return trieNodes;
+	    }
+
 	
 	/** Return the TrieNode that is the child when you follow the 
 	 * link from the given Character 

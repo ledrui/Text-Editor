@@ -1,5 +1,6 @@
 package spelling;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
@@ -90,6 +91,7 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	
 	/**
 	 *  search a node down 
+	 *  Return all node that have string s as prefix
 	 * @param String word
 	 * 
 	 * */
@@ -136,20 +138,32 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     	 //       Add all of its child nodes to the back of the queue
     	 // Return the list of completions
     	 
+    	 List <String> completionList = new LinkedList<String>();
+    	 /*Can't do much with an empty String*/
+    	 if(prefix.length() == 0){
+    		 return completionList;
+    	 }
+    	 
+    	 /*Get node by prefix*/
+    	 TrieNode currentNode;
+    	 
     	 Queue < TrieNode> q = new LinkedList< TrieNode >();
     	 q.add(root.getChild(prefix.charAt(0)));
-    	 List <String> completionList = new LinkedList<String>();
     	 
-    	 while(!q.isEmpty()){
+    	 int count = 0;
+    	 while(!q.isEmpty() && count < numCompletions ){
     		 TrieNode curr = q.remove();
     		 if(isWord(curr.getText()) ){
     			 completionList.add(curr.getText());
     		 
 	    		 while(curr != null){
-	    			// ((Object) curr).visit();
-	    			 q.add(curr.getValidNextCharacters());
+	    			/* add all his children to the back of the queue */
+	    			 q.add(curr.children);
+	    			 
 	    		 }
     		 }
+    		 
+    		 count++;
     	 }
     	 
          return completionList;
