@@ -23,89 +23,74 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	{
 		root = new TrieNode();
 	}
-	////////////////////////////////////////////////////////////////////////////////////
     
+    /** Insert a word into the trie.
+	 * For the basic part of the assignment (part 2), you should ignore the word's case.
+	 * That is, you should convert the string to all lower case as you insert it. 
+	 * @author Iliass
+	 * */
+    /** Add a word to the trie
+     * @param String containing the word */
+    public boolean addWord(String word) {
+    	if(isWord(word)){ return false; }
+        return addWord(word.toLowerCase().toCharArray());
+    }
     /** Internal method to add a word to the trie
      * @param Char array containing the word to be added */
-    private void addWord(String word) {
-    	word = word.toLowerCase();
+    private boolean addWord(char[] word) {
         TrieNode currentNode;
-
+        if(word.length == 0 ){
+        	return false;
+        }
         /* If we don't already have a word that starts with this char, add the char */
-        if ( !root.containsKey(word.charAt(0)) ) {
-            currentNode = new TrieNode(word.charAt(0));
-            root.put(word[0], currentNode);
+        Set keySet = root.getValidNextCharacters();
+        		Character ch = word[0];
+        if ( !keySet.contains(word[0]) ) {
+            //currentNode = new TrieNode(ch.toString());
+            currentNode = root.insert(word[0]);
 
         } else {
             /* Otherwise get the node that contains char */
-            currentNode = root.get(word[0]);
+            currentNode = root.getChild(word[0]);
         }
 
         for ( int i = 1; i < word.length; i++ ) {
             /* If a child has this char, walk down to the next level */
-            if ( currentNode.containsChar(word[i]) ) {
-                currentNode = currentNode.getNode(word[i]);
+            if (containsChar(currentNode, word[i]) ) {
+                currentNode = currentNode.getChild(word[i]);
             } else {
                 /* Otherwise add the char */
-                currentNode.addChild(word[i]);
-                currentNode = currentNode.getNode(word[i]);
+                currentNode.insert(word[i]);
+                currentNode = currentNode.getChild(word[i]);
             }
         }
 
         /* We are at the end of the word */
-        currentNode.isWord = true;
+        currentNode.setEndsWord(true);
+        size++;
+        return currentNode.endsWord();
     }
     
-    ///////////////////////////////////////////////////////////////////////////////////
-	
-	/** Insert a word into the trie.
-	 * For the basic part of the assignment (part 2), you should ignore the word's case.
-	 * That is, you should convert the string to all lower case as you insert it. */
-	
-	public boolean addWord(String word)
-	{
-		if (word.isEmpty()){
-			return false;
-		}
-		
-		HashMap<Character, TrieNode> children = root.children;
-		TrieNode currentNode = null;
-		
-		for(int i = 0; i < word.length(); i++){
-			Character currChar = word.charAt(i);
-			
-			
-			if(children.containsKey(currChar)){
-				currentNode = children.get(currChar);
-			}else{
-				/* the current char doesn't already exist in the trie 
-				 * create a new node to insert it*/
-				currentNode = new TrieNode(currChar.toString());
-				children.put(currChar, currentNode );			
-				}
-			children = currentNode.children;
-			
-			// set isWord
-			if(i == word.length()-1){
-				currentNode.setEndsWord(true);
-				// update size
-				size++;
-			}
-			
-		}
-		return currentNode.endsWord();		
-	}
-
-
+	 /** Whether this node's children contain character
+     * @param The character to check
+     * @return Boolean */
+    public boolean containsChar(TrieNode Node, char character) {
+    	
+        Set keySet = Node.getValidNextCharacters();
+        if(keySet.contains(character)){
+        	return true;
+        }else
+           return false;
+    } 
+ 
+    
 	/** 
 	 * Return the number of words in the dictionary.  This is NOT necessarily the same
 	 * as the number of TrieNodes in the trie.
 	 */
 	public int size()
 	{
-	    
-	    return size;
-	    		
+	    return size;	    		
 	}
 	
 	
@@ -116,35 +101,42 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	    s = s.toLowerCase();
 	    TrieNode tempNode = searchNode(s);
 	    
-	    if(tempNode != null && tempNode.endsWord())
-	    	return true;
-	    else
+	    if(tempNode != null){
+	           return tempNode.endsWord();  
+	    }
 	    	return false;
 	   }
 	
 	/**
 	 *  search a node down 
-	 *  Return all node that have string s as prefix
+	 *  Return the node that have the last Charater of the
 	 * @param String word
 	 * 
 	 * */
 	
-	public TrieNode searchNode( String s){
-		
-		HashMap<Character, TrieNode> children = root.children;
-		TrieNode t = null;
-		for(int i = 0; i < s.length(); i++){
-			Character c = s.charAt(i);
-			if(children.containsKey(c)){
-				t = (TrieNode) children.get(c);
-				children = t.children;
-			}else{
-				return null;
+	public TrieNode searchNode( String prefix){
+		// Find the node which represents the last letter of the prefix.
+			if(prefix.isEmpty()){
+			 return null;	
 			}
-		}
-		return t;
+			char[] prefixChar = prefix.toCharArray();	
+			TrieNode lastNode = root;
+            for (Character c : prefixChar ){
+				while(lastNode !=null){
+				lastNode = lastNode.getChild(c);
+				}
+			}	
+				
+			return lastNode;	
 	}
 
+	/**
+	 * get word of the prefix
+	 * @param prefix
+	 * return list of String containing
+	 * */
+	
+	
 	/** 
 	 *  * Returns up to the n "best" predictions, including the word itself,
      * in terms of length
@@ -154,6 +146,9 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
      * @return A list containing the up to n best predictions
      */
 	//@Override
+	List <String> completionTestList = new LinkedList<String>();
+	Queue <TrieNode> testQ = new LinkedList< TrieNode >();
+	
      public List<String> predictCompletions(String prefix, int numCompletions) 
      {
     	 // TODO: Implement this method
@@ -178,32 +173,53 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     	 }
     	 
     	 /*Get node by prefix*/
-    	 TrieNode currentNode;
+    	 TrieNode currentNode = searchNode(prefix);
+    	 if(currentNode == null){
+    		 return completionList;
+    	 }
     	 
-    	 Queue < TrieNode> q = new LinkedList< TrieNode >();
-    	 q.add(root.getChild(prefix.charAt(0)));
+    	 Queue <TrieNode> q = new LinkedList< TrieNode >();
+    	 q.add(currentNode);
     	 
     	 int count = 0;
     	 while(!q.isEmpty() && count < numCompletions ){
     		 TrieNode curr = q.remove();
     		 if(isWord(curr.getText()) ){
     			 completionList.add(curr.getText());
-    		 
-	    		 while(curr != null){
-	    			/* add all his children to the back of the queue */
-	    			 for(TrieNode node:curr.getChildren()){
-	    				 q.add(node);
-	    			 }
-	    			 
+    			 
+    			 // walk down and Add all his Children
+    			 TrieNode next = null;
+    	 	       for (Character c : currentNode.getValidNextCharacters()) {
+    	 	 			next = currentNode.getChild(c);
+    	 	 			completionList.add(next.getText());
+    	 	 		}
+	    		 
 	    		 }
+    		  count++;
     		 }
     		 
-    		 count++;
-    	 }
-    	 
+    		     	 
+    	 System.out.println(""+ completionList);
+    	 completionTestList = completionList;
          return completionList;
      }
 
+     /**
+ 	 * @author Iliass
+ 	 * return the all the children of the Trie
+ 	 * */
+ 	 public ArrayList<TrieNode> getChildren(TrieNode theNode ) {
+ 		
+ 	        ArrayList<TrieNode> nodesList = new ArrayList<TrieNode>();
+ 	        
+ 	       TrieNode next = null;
+ 	       for (Character c : theNode.getValidNextCharacters()) {
+ 	 			next = theNode.getChild(c);
+ 	 			nodesList.add(next);
+ 	 		}
+ 	        return nodesList;
+ 	    }
+     
  	// For debugging
  	public void printTree()
  	{
@@ -223,8 +239,5 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
  			next = curr.getChild(c);
  			printNode(next);
  		}
- 	}
- 	
-
-	
+ 	}	
 }

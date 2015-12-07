@@ -6,11 +6,11 @@ import java.util.Set;
 
 /** 
  * Represents a node in a Trie
- * @author Iliass
+ * @author 
  *
  */
 class TrieNode {
-	HashMap<Character, TrieNode> children; 
+	private HashMap<Character, TrieNode> children; 
 	private String text;  // Maybe omit for space
 	private boolean isWord;
 	
@@ -28,26 +28,6 @@ class TrieNode {
 		this();
 		this.text = text;
 	}
-	
-	/**
-	 * @author Iliass
-	 * return the all the children of the Trie
-	 * */
-	 public ArrayList<TrieNode> getChildren() {
-	        ArrayList<TrieNode> trieNodes = new ArrayList<TrieNode>();
-	        for ( TrieNode node : children.values() ) {
-	            trieNodes.add(node);
-	        }
-	        return trieNodes;
-	    }
-
-	 /** Whether this node's children contain character
-	     * @param The character to check
-	     * @return Boolean */
-	    public boolean containsChar(char character) {
-	        return children.containsKey(character);
-	    }
-	 
 	/** Return the TrieNode that is the child when you follow the 
 	 * link from the given Character 
 	 * @param c The next character in the key
