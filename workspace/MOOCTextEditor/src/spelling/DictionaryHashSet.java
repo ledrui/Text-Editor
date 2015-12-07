@@ -25,21 +25,21 @@ public class DictionaryHashSet implements Dictionary
      * @param word The word to add
      * @return true if the word was added to the dictionary 
      * (it wasn't already there). */
-	@Override
+	//@Override
 	public boolean addWord(String word) 
 	{
 		return words.add(word.toLowerCase());
 	}
 
 	/** Return the number of words in the dictionary */
-    @Override
+    //@Override
 	public int size()
 	{
     	 return words.size();
 	}
 	
 	/** Is this a word according to this dictionary? */
-    @Override
+    //@Override
 	public boolean isWord(String s) {
     	return words.contains(s.toLowerCase());
 	}

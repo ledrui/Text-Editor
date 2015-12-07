@@ -31,18 +31,21 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	 * */
     /** Add a word to the trie
      * @param String containing the word */
-    public boolean addWord(String word) {
-    	if(isWord(word)){ return false; }
-        return addWord(word.toLowerCase().toCharArray());
-    }
+   // public boolean addWord2(String word) {
+    	//if(isWord(word)){ return false; }
+        //return addWord(word.toLowerCase().toCharArray());
+        //return addWord1(word);
+   // }
     /** Internal method to add a word to the trie
      * @param Char array containing the word to be added */
-    private boolean addWord(char[] word) {
-        TrieNode currentNode;
+    private boolean addWord1(String text) {
+    	char[] word = text.toCharArray();
+        
         if(word.length == 0 ){
         	return false;
         }
         /* If we don't already have a word that starts with this char, add the char */
+        TrieNode currentNode;
         Set keySet = root.getValidNextCharacters();
         		Character ch = word[0];
         if ( !keySet.contains(word[0]) ) {
@@ -69,6 +72,30 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
         currentNode.setEndsWord(true);
         size++;
         return currentNode.endsWord();
+    }
+    
+   ////////////////////////////////////////////////// 
+    public boolean addWord(String word)	
+    {		
+    	if(word.isEmpty()){
+    		return false;
+    	}
+        boolean result = false;
+        TrieNode prevN = root;
+        TrieNode nextN = null;
+    	word = word.toLowerCase();
+    	for (char ch:word.toCharArray()){
+    		nextN = prevN.insert(ch);
+    		if (nextN==null){
+    			nextN = prevN.getChild(ch);
+    		}
+    		prevN = nextN;
+    	}
+    	if (!nextN.endsWord()) {
+    		nextN.setEndsWord(true);
+    		size++;result = true;
+    	}
+    return result;
     }
     
 	 /** Whether this node's children contain character
@@ -98,13 +125,17 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	
 	public boolean isWord(String s) 
 	{
+		if(s.isEmpty()){
+			return false;
+		}
 	    s = s.toLowerCase();
-	    TrieNode tempNode = searchNode(s);
-	    
+	    TrieNode tempNode = getNodeByPrefix(s);
 	    if(tempNode != null){
-	           return tempNode.endsWord();  
-	    }
+	    	return tempNode.endsWord();   
+	    }else{
 	    	return false;
+	    }
+	    	
 	   }
 	
 	/**
@@ -114,21 +145,36 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	 * 
 	 * */
 	
-	public TrieNode searchNode( String prefix){
-		// Find the node which represents the last letter of the prefix.
-			if(prefix.isEmpty()){
-			 return null;	
-			}
-			char[] prefixChar = prefix.toCharArray();	
-			TrieNode lastNode = root;
-            for (Character c : prefixChar ){
-				while(lastNode !=null){
-				lastNode = lastNode.getChild(c);
-				}
-			}	
-				
-			return lastNode;	
-	}
+	/** Return the node at the end of the prefix
+     * @param String containing the prefix
+     * @return TrieNode or null if nothing found */
+    private TrieNode getNodeByPrefix(String prefix) {
+        char[] pre = prefix.toCharArray();
+        TrieNode currentNode;
+
+        /* If root doesn't have the char, return null */
+        if ( root.getChild(pre[0]) == null || pre.length == 0 ) {
+            return null;
+        } else {
+
+            /* Otherwise get the node that contains char */
+            currentNode = root.getChild(pre[0]);
+        }
+
+        for ( int i = 1; i < pre.length; i++ ) {
+            /* If we don't have the char, return null */
+            if ( currentNode.getChild(pre[i]) == null) {
+                return null;
+            } else {
+                /* Otherwise keep walking the trie */
+                currentNode = currentNode.getChild(pre[i]);
+            }
+        }
+
+        /* We are at the end of the prefix, return the node */
+        return currentNode;
+    }
+
 
 	/**
 	 * get word of the prefix
@@ -172,37 +218,35 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     		 return completionList;
     	 }
     	 
-    	 /*Get node by prefix*/
-    	 TrieNode currentNode = searchNode(prefix);
-    	 if(currentNode == null){
-    		 return completionList;
-    	 }
+    	 /*char[] ch=(prefix.toLowerCase()).toCharArray();
+    	 TrieNode curr=root;
+    	 int flag=0;
+    	 for(char c:ch){
+    		 if(curr.getChild(c)!=null){
+    			 curr=curr.getChild(c);
+    		 }else flag=1;	 
+    	   }
+    	 if(flag==1) return completionList;*/
     	 
-    	 Queue <TrieNode> q = new LinkedList< TrieNode >();
-    	 q.add(currentNode);
+    	 TrieNode curr = getNodeByPrefix(prefix);
+    	 if(curr == null) return completionList;
     	 
-    	 int count = 0;
-    	 while(!q.isEmpty() && count < numCompletions ){
-    		 TrieNode curr = q.remove();
-    		 if(isWord(curr.getText()) ){
-    			 completionList.add(curr.getText());
-    			 
-    			 // walk down and Add all his Children
-    			 TrieNode next = null;
-    	 	       for (Character c : currentNode.getValidNextCharacters()) {
-    	 	 			next = currentNode.getChild(c);
-    	 	 			completionList.add(next.getText());
-    	 	 		}
-	    		 
-	    		 }
-    		  count++;
+    	 Queue<TrieNode> q = new LinkedList<TrieNode>();
+    	 q.add(curr);
+    	 while(!(q.isEmpty())&&numCompletions>0){
+    		 TrieNode temp = q.remove();
+    		 if(temp.endsWord()){
+    			 completionList.add(temp.getText());
+    			 numCompletions--;
+    			 for(char s:temp.getValidNextCharacters()){
+    				 q.add(temp.getChild(s));
+    			 }
+    		    
     		 }
-    		 
-    		     	 
-    	 System.out.println(""+ completionList);
-    	 completionTestList = completionList;
+    	 }
          return completionList;
      }
+
 
      /**
  	 * @author Iliass

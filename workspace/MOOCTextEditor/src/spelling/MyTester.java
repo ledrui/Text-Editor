@@ -36,14 +36,22 @@ public class MyTester {
 	public static void main(String[] argv){
 		AutoCompleteDictionaryTrie MyDict = new AutoCompleteDictionaryTrie();
 		
-		System.out.println(MyDict.addWord("ad") );
-		System.out.println("adding duplicate "+MyDict.addWord("ad") );
-		System.out.println("adding empty list "+MyDict.addWord("") );
+		//System.out.println(MyDict.addWord("ad") );
+		//System.out.println("adding duplicate "+MyDict.addWord("ad") );
+		//System.out.println("adding empty list "+MyDict.addWord("") );
+		System.out.println("adding hello "+MyDict.addWord("Hello") );
 		System.out.println(MyDict.addWord("add") );
-		MyDict.addWord("moreword");
+		MyDict.addWord("more-word");
 		
 		MyDict.printTree();
-		System.out.println("Completion list"+ MyDict.predictCompletions("mo", 3));
+		System.out.println("Completion list"+ MyDict.predictCompletions("he", 3));
+		
+		System.out.println(" isWord test on ad "+MyDict.isWord("ad") );
+		System.out.println(" isWord test on hello "+MyDict.isWord("hello") );
+		System.out.println(" isWord test on fake word "+MyDict.isWord("Fake word") );
+		System.out.println(" isWord test on empty word "+MyDict.isWord("Fake word") );
+		
+		
 		
 	}
 

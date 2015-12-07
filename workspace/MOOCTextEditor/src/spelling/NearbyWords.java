@@ -77,12 +77,12 @@ public class NearbyWords implements SpellingSuggest {
 	 * @return
 	 */
 	public void insertions(String s, List<String> currentList, boolean wordsOnly ) {
-		for(int index = 0; index < s.length(); index++){
+		for(int index = 0; index < s.length()+1; index++){
 			for(int charCode = (int)'a'; charCode <= (int)'z'; charCode++) {
 				// use StringBuffer for an easy interface to permuting the 
 				// letters in the String
 				StringBuffer sb = new StringBuffer(s);
-				sb.insert(index-1, (char)charCode);
+				sb.insert(index, (char)charCode);
 
 				// if the item isn't in the list, isn't the original string, and
 				// (if wordsOnly is true) is a real word, add to the list
@@ -124,27 +124,6 @@ public class NearbyWords implements SpellingSuggest {
 	 * @param numSuggestions is the maximum number of suggestions to return 
 	 * @return the list of spelling suggestions
 	 * 
-	 * Input:  word for which to provide number of spelling suggestions
-		Input:  number of maximum suggestions to provide
-		Output: list of spelling suggestions
-		
-		Create a queue to hold words to explore
-		Create a visited set to avoid looking at the same String repeatedly
-		Create list of real words to return when finished
-		
-		Add the initial word to the queue and visited 
-		
-		while the queue has elements and we need more suggestions
-		  remove the word from the start of the queue and assign to curr
-		  get a list of neighbors (words one mutation away from curr)
-		  for each n in the list of neighbors
-		     if n is not visited
-		       add n to the visited set
-		       add n to the back of the queue
-		       if n is a word in the dictionary
-		          add n to the list of words to return
-		
-		return the list of real words
 	 */
 	//@Override
 	public List<String> suggestions(String word, int numSuggestions) {
@@ -155,7 +134,6 @@ public class NearbyWords implements SpellingSuggest {
 														   // string multiple times
 		List<String> retList = new LinkedList<String>();   // words to return
 		 
-		
 		// insert first node
 		queue.add(word);
 		visited.add(word);
@@ -165,13 +143,13 @@ public class NearbyWords implements SpellingSuggest {
 			for (String text : distanceOne(curr, true)){
 				if(!visited.contains(text)){
 					visited.add(text);
-					queue.add(text);
-					// build thet suggested list
-					retList.add(text);
+					queue.add(text);	
 				}
 			}
+			// build the suggested list
+			retList.add(queue.remove(0));
 			// Debugging
-			System.out.println(numSuggestions+"th Sugesst Lists"+retList);
+			//System.out.println(numSuggestions - (numSuggestions -1)+"th Sugesst Lists"+retList);
 			numSuggestions --;
 		}
 		
