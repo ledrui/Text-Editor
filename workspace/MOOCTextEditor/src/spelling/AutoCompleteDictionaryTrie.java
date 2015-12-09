@@ -152,21 +152,17 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
         char[] pre = prefix.toCharArray();
         TrieNode currentNode;
 
-        /* If root doesn't have the char, return null */
-        if ( root.getChild(pre[0]) == null || pre.length == 0 ) {
-            return null;
-        } else {
-
             /* Otherwise get the node that contains char */
-            currentNode = root.getChild(pre[0]);
-        }
-
-        for ( int i = 1; i < pre.length; i++ ) {
+            currentNode = root;
+    
+        
+        for ( int i = 0; i < pre.length; i++ ) {
             /* If we don't have the char, return null */
             if ( currentNode.getChild(pre[i]) == null) {
+               
                 return null;
             } else {
-                /* Otherwise keep walking the trie */
+                /* Otherwise keep walking the trie down */
                 currentNode = currentNode.getChild(pre[i]);
             }
         }
@@ -207,7 +203,7 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     	 
     	 List <String> completionList = new LinkedList<String>();
     	 
-    	 char[] ch=(prefix.toLowerCase()).toCharArray();
+    	 /*char[] ch=(prefix.toLowerCase()).toCharArray();
     	 TrieNode curr=root;
     	 int flag=0;
     	 for(char c:ch){
@@ -215,25 +211,23 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     			 curr=curr.getChild(c);
     		 }else flag=1;	 
     	   }
-    	 if(flag==1) return completionList; // return an empty list
+    	 if(flag==1) return completionList; // return an empty list*/
     	 
-    	 //TrieNode curr = getNodeByPrefix(prefix);
-    	 System.out.println("The last node of the prefix: "+curr.getValidNextCharacters() +" the prefix:  "+curr.getText());
-    	 
-    	 //if(curr == null) return completionList; // return an empty list
+    	 TrieNode curr = getNodeByPrefix(prefix);
+    	     	 
+    	 if(curr == null) return completionList; // return an empty list
     	 
     	 Queue<TrieNode> q = new LinkedList<TrieNode>();
     	 q.add(curr);
     	 while(!(q.isEmpty())&&numCompletions>0){
     		 TrieNode tempNode = q.remove();
-    		 if(tempNode != null){
+    		 if(tempNode != null && tempNode.endsWord()){
     			 completionList.add(tempNode.getText());
-    			 numCompletions--;
-    			 for(char s:tempNode.getValidNextCharacters()){
-    				 q.add(tempNode.getChild(s));
-    			 }
-    		    
+    			 numCompletions--;    		    
     		 }
+    		 for(char s:tempNode.getValidNextCharacters()){
+				 q.add(tempNode.getChild(s));
+			 }
     	 }
          return completionList;
      }

@@ -37,13 +37,13 @@ public class MyTester {
 		MyDict.addWord("more-word");
 		
 		MyDict.printTree();
-		System.out.println("Completion list "+ MyDict.predictCompletions("h", 10));
+		System.out.println("Completion list "+ MyDict.predictCompletions("hel", 10));
 		System.out.println("Completion list empty-word "+ MyDict.predictCompletions("", 10));
 		
 		System.out.println(" isWord test on ad "+MyDict.isWord("ad") );
 		System.out.println(" isWord test on hello "+MyDict.isWord("hello") );
 		System.out.println(" isWord test on fake word "+MyDict.isWord("Fake word") );
-		System.out.println(" isWord test on empty word "+MyDict.isWord("Fake word") );
+		System.out.println(" isWord test on empty word "+MyDict.isWord("") );
 		
 		
 		
