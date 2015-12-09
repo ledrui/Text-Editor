@@ -176,13 +176,6 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     }
 
 
-	/**
-	 * get word of the prefix
-	 * @param prefix
-	 * return list of String containing
-	 * */
-	
-	
 	/** 
 	 *  * Returns up to the n "best" predictions, including the word itself,
      * in terms of length
@@ -213,12 +206,8 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     	 // Return the list of completions
     	 
     	 List <String> completionList = new LinkedList<String>();
-    	 /*Can't do much with an empty String*/
-    	 if(prefix.length() == 0){
-    		 return completionList;
-    	 }
     	 
-    	 /*char[] ch=(prefix.toLowerCase()).toCharArray();
+    	 char[] ch=(prefix.toLowerCase()).toCharArray();
     	 TrieNode curr=root;
     	 int flag=0;
     	 for(char c:ch){
@@ -226,20 +215,22 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     			 curr=curr.getChild(c);
     		 }else flag=1;	 
     	   }
-    	 if(flag==1) return completionList;*/
+    	 if(flag==1) return completionList; // return an empty list
     	 
-    	 TrieNode curr = getNodeByPrefix(prefix);
-    	 if(curr == null) return completionList;
+    	 //TrieNode curr = getNodeByPrefix(prefix);
+    	 System.out.println("The last node of the prefix: "+curr.getValidNextCharacters() +" the prefix:  "+curr.getText());
+    	 
+    	 //if(curr == null) return completionList; // return an empty list
     	 
     	 Queue<TrieNode> q = new LinkedList<TrieNode>();
     	 q.add(curr);
     	 while(!(q.isEmpty())&&numCompletions>0){
-    		 TrieNode temp = q.remove();
-    		 if(temp.endsWord()){
-    			 completionList.add(temp.getText());
+    		 TrieNode tempNode = q.remove();
+    		 if(tempNode != null){
+    			 completionList.add(tempNode.getText());
     			 numCompletions--;
-    			 for(char s:temp.getValidNextCharacters()){
-    				 q.add(temp.getChild(s));
+    			 for(char s:tempNode.getValidNextCharacters()){
+    				 q.add(tempNode.getChild(s));
     			 }
     		    
     		 }
