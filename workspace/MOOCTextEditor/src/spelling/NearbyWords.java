@@ -151,12 +151,11 @@ public class NearbyWords implements SpellingSuggest {
 		}
 		
 		return retList;
-
 	}	
 
    public static void main(String[] args) {
 	   /* basic testing code to get started*/
-	   String word = "a";
+	   String word = "i";
 	   // Pass NearbyWords any Dictionary implementation you prefer
 	   Dictionary d = new DictionaryHashSet();
 	   DictionaryLoader.loadDictionary(d, "data/dict.txt");
