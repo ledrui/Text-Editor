@@ -143,14 +143,11 @@ public class NearbyWords implements SpellingSuggest {
 			for (String text : distanceOne(curr, true)){
 				if(!visited.contains(text)){
 					visited.add(text);
-					queue.add(text);	
+					queue.add(text);	// build the suggested list
+					retList.add(text);numSuggestions --; 
+					if (numSuggestions == 0) return retList;
 				}
 			}
-			// build the suggested list
-			retList.add(queue.remove(0));
-			// Debugging
-			//System.out.println(numSuggestions - (numSuggestions -1)+"th Sugesst Lists"+retList);
-			numSuggestions --;
 		}
 		
 		return retList;
@@ -159,7 +156,7 @@ public class NearbyWords implements SpellingSuggest {
 
    public static void main(String[] args) {
 	   /* basic testing code to get started*/
-	   String word = "i";
+	   String word = "a";
 	   // Pass NearbyWords any Dictionary implementation you prefer
 	   Dictionary d = new DictionaryHashSet();
 	   DictionaryLoader.loadDictionary(d, "data/dict.txt");

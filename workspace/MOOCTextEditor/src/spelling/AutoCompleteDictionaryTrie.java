@@ -31,48 +31,8 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	 * */
     /** Add a word to the trie
      * @param String containing the word */
-   // public boolean addWord2(String word) {
-    	//if(isWord(word)){ return false; }
-        //return addWord(word.toLowerCase().toCharArray());
-        //return addWord1(word);
-   // }
     /** Internal method to add a word to the trie
      * @param Char array containing the word to be added */
-    private boolean addWord1(String text) {
-    	char[] word = text.toCharArray();
-        
-        if(word.length == 0 ){
-        	return false;
-        }
-        /* If we don't already have a word that starts with this char, add the char */
-        TrieNode currentNode;
-        Set keySet = root.getValidNextCharacters();
-        		Character ch = word[0];
-        if ( !keySet.contains(word[0]) ) {
-            //currentNode = new TrieNode(ch.toString());
-            currentNode = root.insert(word[0]);
-
-        } else {
-            /* Otherwise get the node that contains char */
-            currentNode = root.getChild(word[0]);
-        }
-
-        for ( int i = 1; i < word.length; i++ ) {
-            /* If a child has this char, walk down to the next level */
-            if (containsChar(currentNode, word[i]) ) {
-                currentNode = currentNode.getChild(word[i]);
-            } else {
-                /* Otherwise add the char */
-                currentNode.insert(word[i]);
-                currentNode = currentNode.getChild(word[i]);
-            }
-        }
-
-        /* We are at the end of the word */
-        currentNode.setEndsWord(true);
-        size++;
-        return currentNode.endsWord();
-    }
     
    ////////////////////////////////////////////////// 
     public boolean addWord(String word)	
