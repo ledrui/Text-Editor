@@ -266,17 +266,12 @@ class LLNode<E>
 	// TODO: Add any other methods you think are useful here
 	// E.g. you might want to add another constructor
 
-	public LLNode(E theData) 
+	public LLNode(E Data) 
 	{
-		this.data = theData;
+		this.data = Data;
 		this.prev = null;
 		this.next = null;
 	}
 	
-	public LLNode(E theData, LLNode prev, LLNode next){
-		this.data = theData;
-		this.prev = prev;
-		this.next = next;
-	}
 
 }
