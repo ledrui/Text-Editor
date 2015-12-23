@@ -39,7 +39,20 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 */
 	public boolean add(E element )
 	{   
+			LLNode<E> newNode = new LLNode<E>(element);
+			if(isEmpty()){
+				
+				tail = newNode;
+			}
+			newNode.prev = tail;
+			tail = newNode;
+			newNode.next = head;
 			
+			if(tail.data == element){
+				return true;
+			}
+		return false;
+		
 	}
 
 	
@@ -51,19 +64,21 @@ public class MyLinkedList<E> extends AbstractList<E> {
 
 	public E get(int index) throws IndexOutOfBoundsException
 	{
-		LLNode<E> current = new LLNode<E>(null);
-		current = head;
-		int counter = 0;
-		for(current = head; current.next!= null; current = current.next){
-			if(counter == index) return current.data;
-			
-			counter++;
-			if(counter > size) {
-				//throw  IndexOutOfBoundsException;
+		if(index == 0) return head.data;
+		if(index < 0 || index > this.size()) throw new IndexOutOfBoundsException();
+		if(!isEmpty()){
+			LLNode<E> current = head ;
+			//current = head;
+			int counter = 0;
+			while(current != null){
+				if(counter == index) return current.data;
+				
+				counter++;
+				current = current.next;
 			}
+			return null;
 		}
-	
-		return null;
+		throw new IndexOutOfBoundsException();
 	}
 
 	/**
@@ -126,54 +141,32 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * @throws IndexOutOfBoundsException If index is outside the bounds of the list
 	 * 
 	 */
-	public E remove(int index) 
+	public E remove(int index) throws IndexOutOfBoundsException
 	{
-		// Check for Exceptions
-		if(size == 0) throw new  NoSuchElementException();
+		if( index < 0 || index > this.size()) throw new IndexOutOfBoundsException();
 		
-		if(index < 0 || index > size()){
-			throw new IndexOutOfBoundsException();
-		}
-		
-		
-		LLNode<E> current  = head;
-		LLNode<E> temp  = new LLNode<E>(null);
-		
-		if(index == 0){
-			head = current.next;
-			head.prev = null;
-			current.next = null;
-			current.prev = null;
-			size--;
-			System.out.println("deleted: "+ current.data);
-			return (E) current.data;
-		}
-		else{
+			LLNode<E> current = head;
+			LLNode<E> prev = head;
 			
-			// Traverse the list
-			while(kthNode != index){
-				current = current.next;
-				
-				kthNode++;
+			if(index == 0){
+				head = head.next;
+				return current.data;
 			}
-			if (current.next == null){
-				
-				current.prev.next = null;
-				current.prev = null;
-				size--;
-				
-				return (E) current.data;
+			
+			int count = 0;
+			if(!isEmpty()){
+				while(current!=null){
+					if(count == index){
+					   prev.next = current.next;
+					   return current.data;
+					}
+					prev  = current;
+					current = current.next;
+					count++;
+				}
 			}
-			else{
-				current.prev.next = current.next;
-				current.next.prev = current.prev;
-				size--;
-				System.out.println("deleted: "+ current.data);
-				
-				return (E) current.data;
-				
-			}
-		}
+			
+			throw new IndexOutOfBoundsException();
 	}
 
 	/**
@@ -187,10 +180,21 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	{
 		if(index < 0 || index > size-1 ) throw new IndexOutOfBoundsException();
 		
-		LLNode<E> current = new LLNode<E>(element);
+		LLNode<E> current = head;
+		int count = 0;
+		while(current!=null){
+			if(count == index) {
+				E theData = current.data;
+				current.data = element; 
+				return theData;
+			}
+			
+			// otherwise keep running
+			count ++;
+			current = current.next;
+		}
 		
-		
-		return current.data;
+		return null;
 	}   
 	
 		 

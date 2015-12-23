@@ -17,7 +17,7 @@ import org.junit.Test;
  */
 public class MyLinkedListTester {
 
-	private static final int LONG_LIST_LENGTH =10; 
+	private static final int LONG_LIST_LENGTH = 10; 
 
 	MyLinkedList<String> shortList;
 	MyLinkedList<Integer> emptyList;
@@ -125,60 +125,52 @@ public class MyLinkedListTester {
 	public void testAddEnd()
 	{
         
-		//System.out.println(list1.toString());
-		//System.out.println("Print: Lists:\t" +list1.toStirng()+ "\t"+shortList.toStirng());
-		
-		// test on list1 
-				try
-				{
-					System.out.println(list1.size());
-					list1.add(23);
-					System.out.println(list1.size());
-					fail("fail to add the new element");
-					
+		//test empty list, get should throw an exception
+				try {
+					emptyList.add(0);
 				}
-				catch(IndexOutOfBoundsException e){
+				catch (IndexOutOfBoundsException e) {
 					
 				}
 				
-				assertEquals("Add: check element 0 is correct ", (Integer)21, list1.get(0));
-				assertEquals("Add: check size is correct ", 4 , list1.size());
+				// test short list, first contents, then out of bounds
+				assertEquals("Check first", "A", shortList.get(0));
+				assertEquals("Check second", "B", shortList.get(1));
 				
-				// test on empty list, throw exception
-				try
-				{
-					System.out.println(emptyList.size());
-					list1.add(23);
-					System.out.println(emptyList.size());
-					fail("fail to add the new element");
+				try {
+					shortList.get(-1);
+					fail("Check out of bounds");
 				}
-				catch(IndexOutOfBoundsException e){
-					
+				catch (IndexOutOfBoundsException e) {
+				
 				}
-				// Test on shortList
-				try
-				{
-					System.out.println(shortList.size());
-					list1.add(23);
-					System.out.println(shortList.size());
-					fail("fail to add the new element");
+				try {
+					shortList.get(2);
+					fail("Check out of bounds");
 				}
-				catch(IndexOutOfBoundsException e){
-					
+				catch (IndexOutOfBoundsException e) {
+				
+				}
+				// test longer list contents
+				for(int i = 0; i<LONG_LIST_LENGTH; i++ ) {
+					assertEquals("Check "+i+ " element", (Integer)i, longerList.get(i));
 				}
 				
-				// Test on LongerList
-				try
-				{
-					System.out.println(longerList.size());
-					list1.add(23);
-					System.out.println(longerList.size());
-					fail("fail to add the new element");
+				// test off the end of the longer array
+				try {
+					longerList.get(-1);
+					fail("Check out of bounds");
 				}
-				catch(IndexOutOfBoundsException e){
-					
+				catch (IndexOutOfBoundsException e) {
+				
 				}
-		
+				try {
+					longerList.get(LONG_LIST_LENGTH);
+					fail("Check out of bounds");
+				}
+				catch (IndexOutOfBoundsException e) {
+				}
+				
 	}
 
 	
