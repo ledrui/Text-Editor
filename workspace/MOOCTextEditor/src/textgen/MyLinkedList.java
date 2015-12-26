@@ -40,13 +40,14 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	public boolean add(E element )
 	{   
 			LLNode<E> newNode = new LLNode<E>(element);
-			if(isEmpty()){
-				
-				tail = newNode;
+			if(isEmpty()){	
+				head = newNode;
+			}else{
+				newNode.prev = tail;
+				tail.next = newNode;
 			}
-			newNode.prev = tail;
+			
 			tail = newNode;
-			newNode.next = head;
 			
 			if(tail.data == element){
 				return true;
