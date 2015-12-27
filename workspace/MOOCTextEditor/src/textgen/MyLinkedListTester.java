@@ -46,7 +46,9 @@ public class MyLinkedListTester {
 		list1.add(109);
 		
 	}
-
+	
+	
+	
 	
 	/** Test if the get method is working correctly.
 	 */
@@ -113,7 +115,7 @@ public class MyLinkedListTester {
 		int a = list1.remove(0);
 		assertEquals("Remove: check a is correct ", 65, a);
 		assertEquals("Remove: check element 0 is correct ", (Integer)21, list1.get(0));
-		assertEquals("Remove: check size is correct ", 2, list1.size());
+		assertEquals("Remove: check size is correct ", 3, list1.size());
 		
 		// remove from empty list 
 		try{
@@ -167,15 +169,15 @@ public class MyLinkedListTester {
 		// test on list1 size
 		try
 		{
-			System.out.println(list1.size());
-			fail("fail to check the size");
+			System.out.println("List1 size: "+list1.size());
+			//fail("fail to check the size");
 			
 		}
 		catch(IndexOutOfBoundsException e){
 			
 		}
 		
-		assertEquals("size: check list1 size is correct ", 5, list1.size());
+		assertEquals("size: check list1 size is correct ", 3, list1.size());
 		
 		// test on empty list, throw exception
 		try
@@ -185,6 +187,7 @@ public class MyLinkedListTester {
 		catch(IndexOutOfBoundsException e){
 			
 		}
+		assertEquals("size: check emptyList size is correct ", 0, emptyList.size());
 		// Test on shortList
 		try
 		{
@@ -194,6 +197,7 @@ public class MyLinkedListTester {
 		catch(IndexOutOfBoundsException e){
 			
 		}
+		assertEquals("size: check shortList size is correct ", 3, shortList.size());
 		
 		// Test on LongList
 		try
@@ -231,7 +235,7 @@ public class MyLinkedListTester {
 		try{
 			int a = list1.set(0, 100);
 			assertEquals("set: check  is correct ", 100, a);
-			assertEquals("Set: check element 0 is correct ", (Integer)21, list1.get(0));
+			assertEquals("Set: check element 0 is correct ", (Integer)100, list1.get(0));
 			assertEquals("Set: check size is correct ", 3, list1.size());
 		}
 		catch(IndexOutOfBoundsException e){
@@ -240,7 +244,5 @@ public class MyLinkedListTester {
 	    
 	}
 	
-	
-	// TODO: Optionally add more test methods.
 	
 }
