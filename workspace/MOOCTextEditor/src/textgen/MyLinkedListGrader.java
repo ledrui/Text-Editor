@@ -103,8 +103,8 @@ public class MyLinkedListGrader {
 	
 	public static void main(String args[])
 	{
-		//MyLinkedListGrader grader = new MyLinkedListGrader();
-		//grader.doTest();
+	    MyLinkedListGrader grader = new MyLinkedListGrader();
+		grader.doTest();
 		/*
 		MyLinkedList<Integer> lst_1 = new MyLinkedList<Integer>();
 		MyLinkedList<String> list2 = new MyLinkedList<String>();
