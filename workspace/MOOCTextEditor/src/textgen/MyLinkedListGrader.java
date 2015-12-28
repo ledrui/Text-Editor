@@ -103,8 +103,22 @@ public class MyLinkedListGrader {
 	
 	public static void main(String args[])
 	{
-		MyLinkedListGrader grader = new MyLinkedListGrader();
-		grader.doTest();
+		//MyLinkedListGrader grader = new MyLinkedListGrader();
+		//grader.doTest();
+		/*
+		MyLinkedList<Integer> lst_1 = new MyLinkedList<Integer>();
+		MyLinkedList<String> list2 = new MyLinkedList<String>();
+		
+		list2.add("malon");
+		list2.toString();
+		
+		int nums[] = {1, 2, 3, 4, 5};
+		for(int i : nums){
+			lst_1.add(i-1,i);
+		}
+		lst_1.toString();
+		*/
+		
 	}
 	
 	

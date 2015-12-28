@@ -177,12 +177,12 @@ public class MyLinkedListTester {
 			
 		}
 		
-		assertEquals("size: check list1 size is correct ", 3, list1.size());
+		assertEquals("size: check list1 size is correct ", 4, list1.size());
 		
 		// test on empty list, throw exception
 		try
 		{
-			System.out.println(emptyList.size());
+			System.out.println("Empty list Size: "+emptyList.size());
 		}
 		catch(IndexOutOfBoundsException e){
 			
@@ -191,7 +191,7 @@ public class MyLinkedListTester {
 		// Test on shortList
 		try
 		{
-			System.out.println(shortList.size());
+			System.out.println("Shorlist Sisze : "+shortList.size());
 			fail("fail to check the size");
 		}
 		catch(IndexOutOfBoundsException e){
@@ -202,7 +202,7 @@ public class MyLinkedListTester {
 		// Test on LongList
 		try
 		{
-			System.out.println(longerList.size());
+			System.out.println("Longer list: "+longerList.size());
 			fail("fail to check the size");
 		}
 		catch(IndexOutOfBoundsException e){
