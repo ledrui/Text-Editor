@@ -96,6 +96,8 @@ public class MyLinkedListGrader {
 
                 feedback += "** Tests 11-20: Testing method bounds...";
                 
+                System.out.println(feedback);
+                
                 out.println(feedback + "Tests complete. Check that everything is as expected.");
                 out.close();
 		
@@ -105,19 +107,19 @@ public class MyLinkedListGrader {
 	{
 	    MyLinkedListGrader grader = new MyLinkedListGrader();
 		grader.doTest();
-		/*
+		
 		MyLinkedList<Integer> lst_1 = new MyLinkedList<Integer>();
 		MyLinkedList<String> list2 = new MyLinkedList<String>();
 		
 		list2.add("malon");
-		list2.toString();
+		
 		
 		int nums[] = {1, 2, 3, 4, 5};
 		for(int i : nums){
 			lst_1.add(i-1,i);
 		}
 		lst_1.toString();
-		*/
+	
 		
 	}
 	

@@ -101,9 +101,13 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	public void add(int index, E element ) throws IndexOutOfBoundsException
 	{
 		// check for exceptions
-		//if(index < 0 || index >= size){
-			//throw new IndexOutOfBoundsException();
-		//}
+		if(index < 0 || index > size()){
+			
+			throw new IndexOutOfBoundsException("Enter the right index "+ this.size);
+		}
+		if(element == null){
+			throw new NullPointerException("List cannot store null value");
+		}
 		
 		LLNode<E>  newNode = new LLNode<E>(element);
 		LLNode<E> current ;
@@ -118,25 +122,23 @@ public class MyLinkedList<E> extends AbstractList<E> {
 		//check for empty 
 		
 		if(index == 0){
-			temp = current.prev;
+			
 			newNode.next = current;
-			newNode.prev = temp;
-			temp = newNode;
+			newNode.prev = current.prev;
+			newNode.next.prev = newNode;
 			head.next = newNode;
 			size++;
 		}
 		else{
 			// Traverse the list up to the index or until the end of the list
-			for(int i = 1; i < index && current.next!= null; i++){
+			for(int i = 0; i < index && current.next!= null; i++){
 				current = current.next;
 			}
 			
 			// 
-			
-			temp = current.prev;
 			newNode.next = current;
-			newNode.prev = temp;
-			temp = newNode;
+			newNode.prev = newNode.next.prev;
+			newNode.next.prev = newNode;
 			newNode.prev.next = newNode;
 			size++;
 		}
@@ -219,6 +221,9 @@ public class MyLinkedList<E> extends AbstractList<E> {
 		
 		if(index < 0 || index > size-1 ){
 			throw new IndexOutOfBoundsException();
+		}
+		else if(element == null){
+			throw new NullPointerException("List cannot store null value");
 		}
 		else{
 			E theData = null;

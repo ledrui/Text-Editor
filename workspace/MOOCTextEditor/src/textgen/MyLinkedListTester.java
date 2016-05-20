@@ -156,21 +156,6 @@ public class MyLinkedListTester {
 			
 		}
 		
-		// add to shortlist
-		try {
-			
-			System.out.println("ShortList size before: "+ shortList.size());
-			shortList.add("C");
-			System.out.println("C added to ShortList. new size: "+ shortList.size());
-			for(int i = 0; i < shortList.size(); i++ ){
-				System.out.println("ShortList's "+i+"th element :"+ shortList.get(i));
-			}
-			
-		}
-		catch(IndexOutOfBoundsException e){
-			
-		}
-		
 		//test add null value
 		try {
 			list1.add(null);
@@ -254,6 +239,14 @@ public class MyLinkedListTester {
 		catch(IndexOutOfBoundsException e){
 			
 		}
+        //test add null value
+		try {
+			list1.add(0, null);
+			
+		}
+		catch (IndexOutOfBoundsException e) {
+			
+		}
 	}
 	
 	/** Test setting an element in the list */
@@ -269,16 +262,24 @@ public class MyLinkedListTester {
 		catch(IndexOutOfBoundsException e){
 			
 		}
+		//test add null value
+		try {
+			list1.set(2, null);
+			
+		}
+		catch (IndexOutOfBoundsException e) {
+			
+		}
 		// test upper bound
 		 try{
-	        	list1.set(list1.size(), 5);
+	        	list1.set(list1.size()+1, 5);
 	        }
 			catch(IndexOutOfBoundsException e){
 				
 			}
 		// test lower bound
 		 try{
-	        	list1.set(-1, 5);
+	        	list1.set(-2, 5);
 	        }
 			catch(IndexOutOfBoundsException e){
 				

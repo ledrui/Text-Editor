@@ -1,0 +1,25 @@
+//TESTING ADDING WORDS (addWord, insert)//
+
+** Test #1: Adding first word to dictionary...
+addWord returned true.
+
+** Test #2: Adding two more words and testing size...
+Size is 3.
+
+** Test #3: Adding more words to dictionary trie (testing size after insertions)...
+Dict size is 24.
+
+** Test #4: Adding duplicate word...
+Adding duplicate word returned true.
+
+** Test #5: Checking size after try to add duplicate word...
+Dict size is 25.
+
+
+//TESTING FOR WORDS IN/OUT OF DICTIONARY (isWord)//
+
+** Test #6: Checking empty string...
+Empty string in dictionary: false.
+
+** Test #7: Checking for word in dictionary...
+Error during runtime: java.lang.NullPointerException
